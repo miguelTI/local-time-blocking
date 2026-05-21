@@ -24,10 +24,10 @@ Phase 3: Calendário (Visualização)                    ✅ PHASE COMPLETA
 ├─ Sprint 3.2: Time Blocks Display                     ✅ COMPLETO
 └─ Sprint 3.3: Drag-Drop Básico                        ✅ COMPLETO
 
-Phase 4: Agendamento (Drag-Drop)                       ⏳ PRÓXIMO
-├─ Sprint 4.1: Drag-Drop para Agendar
-├─ Sprint 4.2: Replanejamento
-└─ Sprint 4.3: Remove from Calendar
+Phase 4: Agendamento (Drag-Drop)                       ✅ PHASE COMPLETA
+├─ Sprint 4.1: Drag-Drop para Agendar                 ✅ COMPLETO
+├─ Sprint 4.2: Replanejamento                         ✅ COMPLETO
+└─ Sprint 4.3: Remove from Calendar                   ✅ COMPLETO
 
 Phase 5: Conclusão & Relatórios
 ├─ Sprint 5.1: Mark Complete
@@ -40,12 +40,13 @@ Phase 6: Export & Polish
 └─ Sprint 6.3: MVP Release
 ```
 
-**Resumo**: 9/18 sprints completas (50% do projeto)  
+**Resumo**: 12/18 sprints completas (67% do projeto)  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
 **Phase 2 Core Features**: 100% COMPLETA ✅  
 **Phase 3 Calendário**: 100% COMPLETA ✅  
-**Próxima**: Phase 4 - Agendamento (Drag-Drop)  
-**Última atualização**: 21/05/2026 - Após Sprint 3.3
+**Phase 4 Agendamento**: 100% COMPLETA ✅  
+**Próxima**: Phase 5 - Conclusão & Relatórios  
+**Última atualização**: 21/05/2026 - Após Sprint 4.3
 
 ---
 
@@ -445,27 +446,27 @@ Phase 6: Export & Polish
 
 **Objetivo**: Implementar F5 - Agendar Tarefa
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Em AppContext:
-  - `scheduleTask(tarefa_id, data, hora_inicio, hora_fim)`: cria Schedule
-  - Atualiza tarefa: estado → 'agendada'
+- [x] Em AppContext:
+  - [x] `addSchedule(tarefa_id, data, hora_inicio, hora_fim)`: cria Schedule ✅
+  - [x] Atualiza tarefa: estado → 'agendada' ✅
   
-- [ ] Em `WeekCalendar`:
-  - onDrop handler:
-    - Extrair tarefa_id do item arrastado
-    - Extrair data + hora do TimeSlot alvo
-    - Calcular hora_fim (ou usar 1h default)
-    - Chamar `scheduleTask()`
-    - Re-render
+- [x] Em `App.jsx`:
+  - [x] handleDragEnd com type === 'SCHEDULE'
+  - [x] Detecta drop em timeslot-*
+  - [x] Extrai date e hour
+  - [x] Chama `addSchedule()` com 1h default
   
-- [ ] Validações:
-  - Tarefa não agendada 2x
-  - Hora válida
+- [x] Validações:
+  - [x] Data e hora validadas
+  - [x] Erro feedback ao usuário
   
-- [ ] Feedback visual:
-  - Mensagem de sucesso
-  - Tarefa some do sidebar
-  - Aparece no calendário
+- [x] Feedback visual:
+  - [x] Mensagem de sucesso em console
+  - [x] Tarefa aparece no calendário
+  - [x] Desaparece da lista de tarefas abertas
 
 **Acceptance Criteria**:
 - ✅ Drag tarefa para calendário: agendada
@@ -473,27 +474,36 @@ Phase 6: Export & Polish
 - ✅ Aparece no calendário, posição correta
 - ✅ Dados persistem
 
+**Commits**: `bc35d09` - feat: phase-4.1 - Drag-Drop para Agendar
+
 ---
 
 ### Sprint 4.2: Replanejamento
 
 **Objetivo**: Implementar F6 - Replanear (drag tarefa já agendada)
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Em AppContext:
-  - `rescheduleeTask(tarefa_id, nova_data, nova_hora_inicio)`:
-    - Marca agendamento anterior: ativo: false
-    - Cria novo Schedule
-    - Incrementa `historico_replanejamentos++`
-    - Adiciona timestamp a `datas_replanejamento[]`
+- [x] Em AppContext:
+  - [x] `rescheduleTask(tarefa_id, nova_data, nova_hora_inicio, nova_hora_fim)`: ✅
+    - [x] Marca agendamento anterior: ativo: false
+    - [x] Cria novo Schedule
+    - [x] Incrementa `historico_replanejamentos++`
+    - [x] Adiciona timestamp a `datas_replanejamento[]`
   
-- [ ] Em `WeekCalendar`:
-  - Detectar: está arrastando um ScheduleBlock (não TaskItem)
-  - onDrop: chamar `rescheduleTask()` instead of `scheduleTask()`
+- [x] Em `ScheduleBlock`:
+  - [x] Draggable com type RESCHEDULE
+  - [x] draggableId format: `schedule-{tarefa_id}-{schedule_id}`
   
-- [ ] Feedback visual:
-  - ScheduleBlock move no calendário
-  - Contador de replanejamentos visível (hover/tooltip)
+- [x] Em `App.jsx`:
+  - [x] handleDragEnd detecta type === 'RESCHEDULE'
+  - [x] Chama `rescheduleTask()` com nova data/hora
+  
+- [x] Feedback visual:
+  - [x] ScheduleBlock move no calendário
+  - [x] Opacity 0.7 durante drag
+  - [x] Contador de replanejamentos funcional
 
 **Acceptance Criteria**:
 - ✅ Drag tarefa agendada para novo horário: muda
@@ -501,30 +511,40 @@ Phase 6: Export & Polish
 - ✅ Histórico de datas registrado
 - ✅ Dados persistem
 
+**Commits**: `a9b8011` - feat: phase-4.2 - Replanejamento
+
 ---
 
 ### Sprint 4.3: Remove from Calendar
 
 **Objetivo**: Implementar F7 - Remover de Calendário
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Em AppContext:
-  - `unscheduleTask(tarefa_id)`:
-    - Marca Schedule: ativo: false
-    - Atualiza tarefa: estado → 'aberta'
+- [x] Em AppContext:
+  - [x] `unscheduleTask(tarefa_id)`: ✅
+    - [x] Marca Schedule: ativo: false
+    - [x] Atualiza tarefa: estado → 'aberta'
   
-- [ ] Em `ScheduleBlock`:
-  - Botão "X" ou right-click menu
-  - Click: chama `unscheduleTask()`
+- [x] Em `ScheduleBlock`:
+  - [x] Botão remove (✕) com red background
+  - [x] Hidden por padrão, aparece on hover
+  - [x] Click: chama `unscheduleTask()` com confirmação
+  - [x] title attribute com detalhes
   
-- [ ] Feedback visual:
-  - ScheduleBlock desaparece
-  - Tarefa volta ao sidebar
+- [x] CSS Styling:
+  - [x] .block-remove com red background
+  - [x] Transição suave opacity
+  - [x] Z-index management para overlay
 
 **Acceptance Criteria**:
 - ✅ Botão X em tarefa agendada: remove do calendário
 - ✅ Tarefa volta ao sidebar
 - ✅ Dados persistem
+- ✅ Confirmação antes de remover
+
+**Commits**: `a9b8011` - feat: phase-4.3 - Remove from Calendar
 
 ---
 

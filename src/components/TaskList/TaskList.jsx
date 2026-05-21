@@ -43,7 +43,7 @@ export default function TaskList() {
           <small>Clique em "+ Nova" para criar uma</small>
         </div>
       ) : (
-        <Droppable droppableId="tasks-list">
+        <Droppable droppableId="tasks-list" type="SCHEDULE">
           {(provided, snapshot) => (
             <div
               className={`tasks-list ${snapshot.isDraggingOver ? 'drag-over' : ''}`}

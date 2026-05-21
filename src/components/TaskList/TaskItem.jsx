@@ -25,7 +25,7 @@ export default function TaskItem({ task, projectColor, index = 0 }) {
   const isOffender = !task.projeto_id;
 
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={task.id} index={index} type="SCHEDULE">
       {(provided, snapshot) => (
         <div
           className={`task-item ${isOffender ? 'offender' : ''} ${snapshot.isDragging ? 'dragging' : ''}`}

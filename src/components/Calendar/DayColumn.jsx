@@ -19,20 +19,21 @@ export default function DayColumn({ date }) {
   };
 
   const getSchedulesForHour = (hour) => {
-    return daySchedules
-      .filter((s) => {
-        const [startHour] = s.hora_inicio.split(':').map(Number);
-        return startHour === hour;
-      })
-      .map((schedule) => (
-        <ScheduleBlock
-          key={schedule.id}
-          schedule={schedule}
-          projectColor={getProjectColor(
-            state.tasks.find((t) => t.id === schedule.tarefa_id)?.projeto_id
-          )}
-        />
-      ));
+    const hourSchedules = daySchedules.filter((s) => {
+      const [startHour] = s.hora_inicio.split(':').map(Number);
+      return startHour === hour;
+    });
+
+    return hourSchedules.map((schedule, index) => (
+      <ScheduleBlock
+        key={schedule.id}
+        schedule={schedule}
+        projectColor={getProjectColor(
+          state.tasks.find((t) => t.id === schedule.tarefa_id)?.projeto_id
+        )}
+        index={index}
+      />
+    ));
   };
 
   return (

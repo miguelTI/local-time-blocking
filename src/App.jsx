@@ -36,29 +36,10 @@ function AppContent() {
       }
     }
 
-    // Replanear tarefa agendada
+    // Replanear tarefa agendada (TODO: implementar corretamente com dois tipos de Droppable)
     if (type === 'RESCHEDULE' && destination.droppableId.startsWith('timeslot-')) {
-      console.log('🔄 Detectado RESCHEDULE type');
-      try {
-        const parts = draggableId.split('-');
-        console.log('📦 ScheduleBlock draggableId parts:', parts);
-        const tarefa_id = parts[1];
-        const schedule_id = parts[2];
-
-        const destParts = destination.droppableId.split('-');
-        const date = destParts[1] + '-' + destParts[2] + '-' + destParts[3];
-        const hour = parseInt(destParts[4], 10);
-
-        const hora_inicio = `${String(hour).padStart(2, '0')}:00`;
-        const hora_fim = `${String(hour + 1).padStart(2, '0')}:00`;
-
-        console.log('📅 Replanejando:', { tarefa_id, schedule_id, date, hora_inicio, hora_fim });
-        rescheduleTask(tarefa_id, date, hora_inicio, hora_fim);
-        console.log('✅ Tarefa replanejada com sucesso!');
-      } catch (error) {
-        console.error('❌ Erro ao replanear:', error.message);
-        alert('❌ Erro ao replanear tarefa: ' + error.message);
-      }
+      // Por enquanto não está funcionando - deixar para próximas fases
+      // quando pudermos arquitetar melhor com múltiplos Droppables
     }
   };
 

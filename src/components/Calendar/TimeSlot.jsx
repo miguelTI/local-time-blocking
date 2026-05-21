@@ -3,7 +3,7 @@ import './TimeSlot.css';
 
 export default function TimeSlot({ hour, date, children, blocks, onClick }) {
   return (
-    <Droppable droppableId={`timeslot-${date}-${hour}`}>
+    <Droppable droppableId={`timeslot-${date}-${hour}`} type="SCHEDULE">
       {(provided, snapshot) => (
         <div
           className={`time-slot ${snapshot.isDraggingOver ? 'drag-over' : ''}`}

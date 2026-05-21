@@ -207,6 +207,47 @@ export function AppContextProvider({ children }) {
     }));
   }, []);
 
+  const completeTask = useCallback((tarefa_id, tempo_gasto) => {
+    if (!tempo_gasto || tempo_gasto <= 0) {
+      throw new Error('Tempo gasto deve ser um número positivo');
+    }
+
+    setState((prev) => ({
+      ...prev,
+      schedules: prev.schedules.map((s) =>
+        s.tarefa_id === tarefa_id && s.ativo ? { ...s, ativo: false } : s
+      ),
+      tasks: prev.tasks.map((t) =>
+        t.id === tarefa_id
+          ? {
+              ...t,
+              estado: 'concluída',
+              tempo_gasto: parseFloat(tempo_gasto),
+              data_conclusao: Date.now(),
+            }
+          : t
+      ),
+    }));
+  }, []);
+
+  const cancelTask = useCallback((tarefa_id) => {
+    setState((prev) => ({
+      ...prev,
+      schedules: prev.schedules.map((s) =>
+        s.tarefa_id === tarefa_id && s.ativo ? { ...s, ativo: false } : s
+      ),
+      tasks: prev.tasks.map((t) =>
+        t.id === tarefa_id
+          ? {
+              ...t,
+              estado: 'cancelada',
+              data_cancelamento: Date.now(),
+            }
+          : t
+      ),
+    }));
+  }, []);
+
   const value = {
     state,
     addProject,
@@ -222,6 +263,8 @@ export function AppContextProvider({ children }) {
     addSchedule,
     rescheduleTask,
     unscheduleTask,
+    completeTask,
+    cancelTask,
   };
 
   return (

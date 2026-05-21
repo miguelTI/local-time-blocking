@@ -29,7 +29,7 @@ Phase 4: Agendamento (Drag-Drop)                       ✅ PHASE COMPLETA
 ├─ Sprint 4.2: Replanejamento                         ✅ COMPLETO
 └─ Sprint 4.3: Remove from Calendar                   ✅ COMPLETO
 
-Phase 5: Conclusão & Relatórios
+Phase 5: Conclusão & Relatórios                       ⏳ EM PROGRESSO
 ├─ Sprint 5.1: Mark Complete
 ├─ Sprint 5.2: Cancel Task
 └─ Sprint 5.3: Relatório de Métricas
@@ -46,7 +46,7 @@ Phase 6: Export & Polish
 **Phase 3 Calendário**: 100% COMPLETA ✅  
 **Phase 4 Agendamento**: 100% COMPLETA ✅  
 **Próxima**: Phase 5 - Conclusão & Relatórios  
-**Última atualização**: 21/05/2026 - Após Sprint 4.3
+**Última atualização**: 21/05/2026 - Iniciando Phase 5
 
 ---
 

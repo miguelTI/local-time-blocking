@@ -105,6 +105,16 @@
   background-color: #f0f0f0;
 }
 
+.action-btn.complete:hover:not(:disabled) {
+  color: #10b981;
+  background-color: #f0fdf4;
+}
+
+.action-btn.cancel:hover:not(:disabled) {
+  color: #f59e0b;
+  background-color: #fffbeb;
+}
+
 .action-btn.delete:hover:not(:disabled) {
   color: #ef4444;
   background-color: #fee;

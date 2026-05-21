@@ -1,9 +1,11 @@
+import TaskList from '../TaskList/TaskList';
+
 export default function MainPanel() {
   return (
     <main>
       <div style={{ maxWidth: '100%' }}>
-        <h2>Calendário Semanal</h2>
-        <p style={{ color: '#666' }}>Sera implementado em Sprint 3.1</p>
+        <h2>Tarefas da Semana</h2>
+        <TaskList />
 
         <div style={{
           marginTop: '24px',
@@ -12,7 +14,7 @@ export default function MainPanel() {
           borderRadius: '4px'
         }}>
           <p style={{ fontSize: '12px', color: '#999' }}>
-            Status: Phase 1, Sprint 1.2 - Data Models & Context ✅
+            Status: Phase 2, Sprint 2.2 - Tarefas CRUD ✅
           </p>
         </div>
       </div>

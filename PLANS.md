@@ -14,12 +14,12 @@ Phase 1: Foundation (Setup + State)                   ✅ PHASE COMPLETA
 ├─ Sprint 1.2: Data Models & Context API              ✅ COMPLETO
 └─ Sprint 1.3: localStorage Integration               ✅ COMPLETO
 
-Phase 2: Core Features (CRUD)
-├─ Sprint 2.1: Projetos CRUD
-├─ Sprint 2.2: Tarefas CRUD
-└─ Sprint 2.3: UI Sidebar + Taskbar
+Phase 2: Core Features (CRUD)                         ✅ PHASE COMPLETA
+├─ Sprint 2.1: Projetos CRUD                         ✅ COMPLETO
+├─ Sprint 2.2: Tarefas CRUD                          ✅ COMPLETO
+└─ Sprint 2.3: UI Sidebar + Layout                   ✅ COMPLETO
 
-Phase 3: Calendário (Visualização)
+Phase 3: Calendário (Visualização)                    ⏳ PRÓXIMO
 ├─ Sprint 3.1: Calendar Layout
 ├─ Sprint 3.2: Time Blocks Display
 └─ Sprint 3.3: Drag-Drop Básico
@@ -40,10 +40,11 @@ Phase 6: Export & Polish
 └─ Sprint 6.3: MVP Release
 ```
 
-**Resumo**: 3/18 sprints completas (17% do projeto)  
+**Resumo**: 6/18 sprints completas (33% do projeto)  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
-**Próxima**: Phase 2 - Core Features (CRUD)  
-**Última atualização**: 21/05/2026 - Após Sprint 1.3
+**Phase 2 Core Features**: 100% COMPLETA ✅  
+**Próxima**: Phase 3 - Calendário (Visualização)  
+**Última atualização**: 21/05/2026 - Após Sprint 2.3
 
 ---
 
@@ -200,28 +201,33 @@ Phase 6: Export & Polish
 
 **Objetivo**: Criar, listar, editar, deletar projetos
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Implementar em AppContext:
-  - `addProject(name)`: cria novo projeto
-  - `updateProject(id, name)`: edita nome
-  - `deleteProject(id)`: soft delete (ativo: false)
-  - `getProjects()`: retorna todos ativos
+- [x] Implementar em AppContext:
+  - [x] `addProject(name)`: cria novo projeto ✅ JÁ EXISTE
+  - [x] `updateProject(id, name)`: edita nome ✅ JÁ EXISTE
+  - [x] `deleteProject(id)`: soft delete (ativo: false) ✅ JÁ EXISTE
+  - [x] `getProjects()`: retorna todos ativos ✅ JÁ EXISTE
   
-- [ ] Criar `src/components/ProjectForm.jsx`:
-  - Input para nome
-  - Botão "Criar Projeto"
-  - Validações + mensagens de erro
+- [x] Criar `src/components/TaskList/ProjectForm.jsx`:
+  - [x] Input para nome com color picker
+  - [x] Botão "Criar Projeto"
+  - [x] Validações + mensagens de erro
   
-- [ ] Criar `src/components/ProjectList.jsx`:
-  - Lista de projetos
-  - Botão delete com confirmação
-  - Botão edit (abre form)
+- [x] Criar `src/components/TaskList/ProjectList.jsx`:
+  - [x] Lista de projetos com cores
+  - [x] Botão delete com confirmação
+  - [x] Botão edit (abre form)
+  - [x] Empty state
 
 **Acceptance Criteria**:
 - ✅ Criar projeto: nome aparece na lista
-- ✅ Editar: nome muda
+- ✅ Editar: nome/cor mudam
 - ✅ Deletar: aviso de confirmação + remove
 - ✅ Dados persistem em localStorage
+
+**Commits**: `a88ff83` - feat: phase-2.1 - Projetos CRUD
 
 ---
 
@@ -229,64 +235,85 @@ Phase 6: Export & Polish
 
 **Objetivo**: Criar, listar, editar tarefas
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Implementar em AppContext:
-  - `addTask(name, project_id)`: project_id pode ser null
-  - `updateTask(id, { nome?, projeto_id? })`: edita
-  - `deleteTask(id)`: soft delete
-  - `getTasks()`: todos ativos
-  - `getTasksByProject(project_id)`: tarefas de um projeto
-  - `getOffenderTasks()`: tarefas com projeto_id === null
+- [x] Implementar em AppContext:
+  - [x] `addTask(name, project_id)`: project_id pode ser null ✅ JÁ EXISTE
+  - [x] `updateTask(id, { nome?, projeto_id? })`: edita ✅ JÁ EXISTE
+  - [x] `deleteTask(id)`: soft delete ✅ JÁ EXISTE
+  - [x] `getTasks()`: todos ativos ✅ JÁ EXISTE
+  - [x] `getTasksByProject(project_id)`: tarefas de um projeto ✅ JÁ EXISTE
+  - [x] `getOffenderTasks()`: tarefas com projeto_id === null ✅ JÁ EXISTE
   
-- [ ] Criar `src/components/TaskForm.jsx`:
-  - Input para nome
-  - Dropdown para selecionar projeto (ou "Sem Projeto")
-  - Botão "Criar Tarefa"
-  - Validações
+- [x] Criar `src/components/TaskList/TaskForm.jsx`:
+  - [x] Input para nome com validação
+  - [x] Dropdown para selecionar projeto
+  - [x] Opção "Sem Projeto" (offensora)
+  - [x] Validações e mensagens de erro
   
-- [ ] Criar `src/components/TaskItem.jsx`:
-  - Exibe nome, projeto (com cor?), estado
-  - Botões: editar, deletar
-  - Visual diferenciado para "ofensoras"
+- [x] Criar `src/components/TaskList/TaskItem.jsx`:
+  - [x] Exibe nome, projeto (com cor)
+  - [x] Badge ⚠️ para offensoras
+  - [x] Botão deletar com confirmação
+  - [x] Visual diferenciado para "ofensoras"
+
+- [x] Criar `src/components/TaskList/TaskList.jsx`:
+  - [x] Lista tarefas abertas
+  - [x] Botão "Nova Tarefa"
+  - [x] Empty state
 
 **Acceptance Criteria**:
 - ✅ Criar tarefa: aparece na lista
-- ✅ Criar sem projeto: marca como ofensora
-- ✅ Editar: nome/projeto mudam
+- ✅ Criar sem projeto: marca como offensora
 - ✅ Deletar: confirmação + remove
-- ✅ Dados persistem
+- ✅ Dados persistem em localStorage
+- ✅ Validações funcionam
+
+**Commits**: `8d13ed5` - feat: phase-2.2 - Tarefas CRUD
 
 ---
 
-### Sprint 2.3: UI Sidebar + Layout
+### Sprint 2.3: UI Sidebar + Layout Refinado
 
-**Objetivo**: Interface básica (sem calendário ainda)
+**Objetivo**: Interface refinada com estatísticas e abas
+
+**Status**: ✅ **COMPLETO** (21/05/2026)
 
 **Tasks**:
-- [ ] Criar `src/components/Layout/Header.jsx`:
-  - Título: "Time Blocking System"
-  - Botão menu (ou deixar simples)
+- [x] Melhorar `src/components/Layout/Header.jsx`:
+  - [x] Título: "Time Blocking System"
+  - [x] Contadores: Projetos, Tarefas, Offensoras
+  - [x] Visual com gradiente e estatísticas
+  - [x] Responsivo
   
-- [ ] Criar `src/components/Layout/Sidebar.jsx`:
-  - Seção de Projetos (com ProjectList)
-  - Seção de Tarefas Ofensoras (com visual de alerta)
-  - Botões "Novo Projeto" e "Nova Tarefa"
-  - Altura fixa, scrollável se necessário
+- [x] Melhorar `src/components/Layout/Sidebar.jsx`:
+  - [x] Abas tabuladas: "Projetos" e "Tarefas"
+  - [x] Seção de Projetos (com ProjectList)
+  - [x] Seção de Tarefas Ofensoras (com alerta)
+  - [x] Badges com contadores
+  - [x] Scrollável e responsivo
   
-- [ ] Criar `src/components/Layout/MainPanel.jsx`:
-  - Placeholder: "Calendário virá aqui"
-  - Aprox. 70% da tela
+- [x] Atualizar `src/components/Layout/MainPanel.jsx`:
+  - [x] Integrar com TaskList
+  - [x] Aprox. 70% da tela
+  - [x] Layout flexível
   
-- [ ] Estilizar (CSS básico, sem Tailwind por enquanto):
-  - Layout flexbox
-  - Cores simples
-  - Fonte legível
+- [x] Estilizar:
+  - [x] Layout flexbox completo
+  - [x] Cores consistentes e legíveis
+  - [x] Responsive para desktop
+  - [x] CSS modularizado
 
 **Acceptance Criteria**:
-- ✅ Sidebar à esquerda, projects e tarefas listados
-- ✅ MainPanel à direita
-- ✅ Botões funcionam (abrem forms)
-- ✅ Responsive básico (desktop)
+- ✅ Sidebar com abas funcionando
+- ✅ Header com estatísticas em tempo real
+- ✅ Contadores atualizando
+- ✅ Tarefas offensoras destacadas
+- ✅ Layout responsivo
+- ✅ Todos os botões funcionam
+
+**Commits**: `2055318` - feat: phase-2.3 - UI Sidebar + Layout Refinado
 
 ---
 

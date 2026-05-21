@@ -1,4 +1,57 @@
-// Placeholder - will be implemented in Sprint 2.2
+import { useState } from 'react';
+import { useAppContext } from '../../hooks/useAppContext';
+import TaskForm from './TaskForm';
+import TaskItem from './TaskItem';
+import './TaskList.css';
+
 export default function TaskList() {
-  return <div>TaskList</div>;
+  const { getTasks, getProjects } = useAppContext();
+  const [showForm, setShowForm] = useState(false);
+
+  const tasks = getTasks();
+  const openTasks = tasks.filter((t) => t.estado === 'aberta');
+  const projects = getProjects();
+
+  const getProjectColor = (projectId) => {
+    const project = projects.find((p) => p.id === projectId);
+    return project?.cor || '#999';
+  };
+
+  return (
+    <div className="task-list-container">
+      <div className="task-list-header">
+        <h2>Tarefas Abertas</h2>
+        <button
+          className="btn-add"
+          onClick={() => setShowForm(!showForm)}
+        >
+          {showForm ? '✕ Cancelar' : '+ Nova'}
+        </button>
+      </div>
+
+      {showForm && (
+        <TaskForm
+          onTaskCreated={() => setShowForm(false)}
+          onCancel={() => setShowForm(false)}
+        />
+      )}
+
+      {openTasks.length === 0 ? (
+        <div className="empty-state">
+          <p>Nenhuma tarefa aberta</p>
+          <small>Clique em "+ Nova" para criar uma</small>
+        </div>
+      ) : (
+        <div className="tasks-list">
+          {openTasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              projectColor={getProjectColor(task.projeto_id)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }

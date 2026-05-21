@@ -1,4 +1,98 @@
-// Placeholder - will be implemented in Sprint 2.2
-export default function TaskForm() {
-  return <form>TaskForm</form>;
+import { useState } from 'react';
+import { useAppContext } from '../../hooks/useAppContext';
+import './TaskForm.css';
+
+export default function TaskForm({ onTaskCreated, onCancel }) {
+  const { addTask, getProjects } = useAppContext();
+  const [name, setName] = useState('');
+  const [projectId, setProjectId] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const projects = getProjects();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    if (!name.trim()) {
+      setError('Nome da tarefa é obrigatório');
+      return;
+    }
+
+    if (name.trim().length > 255) {
+      setError('Nome da tarefa não pode ter mais de 255 caracteres');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      addTask(name.trim(), projectId || null);
+      setName('');
+      setProjectId('');
+      onTaskCreated?.();
+    } catch (err) {
+      setError(err.message || 'Erro ao criar tarefa');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <form className="task-form" onSubmit={handleSubmit}>
+      <h3>Nova Tarefa</h3>
+
+      <div className="form-group">
+        <label htmlFor="task-name">Nome</label>
+        <input
+          id="task-name"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Ex: Revisar proposta"
+          maxLength="255"
+          disabled={isSubmitting}
+          autoFocus
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="task-project">Projeto (Opcional)</label>
+        <select
+          id="task-project"
+          value={projectId}
+          onChange={(e) => setProjectId(e.target.value)}
+          disabled={isSubmitting}
+        >
+          <option value="">Sem Projeto (Ofensora)</option>
+          {projects.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.nome}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {error && <div className="form-error">{error}</div>}
+
+      <div className="form-buttons">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn btn-primary"
+        >
+          {isSubmitting ? 'Criando...' : 'Criar'}
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          disabled={isSubmitting}
+          className="btn btn-secondary"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  );
 }

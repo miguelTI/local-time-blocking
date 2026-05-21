@@ -1,9 +1,9 @@
-export default function ProjectMetrics({ metric, projectColor }) {
+export default function ProjectMetrics({ metric, projectColor, projectName }) {
   return (
     <div className="project-metric-card">
       <div className="card-header">
         <div className="color-indicator" style={{ backgroundColor: projectColor }} />
-        <h4>{metric.projeto_id}</h4>
+        <h4>{projectName}</h4>
       </div>
 
       <div className="metrics-grid-small">

@@ -287,24 +287,49 @@ export function AppContextProvider({ children }) {
     [getTasksByProjectId]
   );
 
+  const getOffenderMetrics = useCallback(() => {
+    const offenderTasks = state.tasks.filter((t) => t.ativo && !t.projeto_id);
+
+    const completedTasks = offenderTasks.filter((t) => t.estado === 'concluída');
+    const canceledTasks = offenderTasks.filter((t) => t.estado === 'cancelada');
+    const openTasks = offenderTasks.filter((t) => t.estado === 'aberta');
+    const scheduledTasks = offenderTasks.filter((t) => t.estado === 'agendada');
+
+    const totalTimeSpent = completedTasks.reduce((sum, task) => {
+      return sum + (task.tempo_gasto || 0);
+    }, 0);
+
+    const totalReschedules = offenderTasks.reduce((sum, task) => {
+      return sum + (task.historico_replanejamentos || 0);
+    }, 0);
+
+    return {
+      projeto_id: 'ofensoras',
+      tempo_gasto_total: parseFloat(totalTimeSpent.toFixed(2)),
+      tarefas_concluidas: completedTasks.length,
+      tarefas_canceladas: canceledTasks.length,
+      tarefas_abertas: openTasks.length,
+      tarefas_agendadas: scheduledTasks.length,
+      total_replanejamentos: totalReschedules,
+    };
+  }, [state.tasks]);
+
   const getAllMetrics = useCallback(() => {
     const projectMetrics = state.projects
       .filter((p) => p.ativo)
-      .map((p) => getMetricsForProject(p.id));
+      .map((p) => ({
+        ...getMetricsForProject(p.id),
+        projeto_nome: p.nome,
+        projeto_cor: p.cor,
+      }));
 
-    const offenderTasks = state.tasks.filter((t) => t.ativo && !t.projeto_id);
-    const openOffenders = offenderTasks.filter((t) => t.estado === 'aberta').length;
-    const completedOffenders = offenderTasks.filter((t) => t.estado === 'concluída').length;
+    const offenderMetrics = getOffenderMetrics();
 
     return {
       por_projeto: projectMetrics,
-      ofensoras: {
-        total_abertas: openOffenders,
-        total_concluidas: completedOffenders,
-        total_tarefas: offenderTasks.length,
-      },
+      ofensoras: offenderMetrics,
     };
-  }, [state.projects, state.tasks, getMetricsForProject]);
+  }, [state.projects, state.tasks, getMetricsForProject, getOffenderMetrics]);
 
   const value = {
     state,
@@ -325,6 +350,7 @@ export function AppContextProvider({ children }) {
     cancelTask,
     getTasksByProjectId,
     getMetricsForProject,
+    getOffenderMetrics,
     getAllMetrics,
   };
 

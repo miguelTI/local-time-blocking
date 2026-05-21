@@ -34,7 +34,7 @@ function AppContent() {
           console.log('✅ Tarefa agendada com sucesso!');
         } else if (source.droppableId.startsWith('timeslot-')) {
           // Replanejamento: tarefa já está agendada em outro horário
-          const parts = draggableId.split('-');
+          const parts = draggableId.split('_');
           console.log('🔄 REPLANEJAMENTO - draggableId:', draggableId, 'parts:', parts);
           const tarefa_id = parts[1];
           const schedule_id = parts[2];

@@ -16,30 +16,31 @@ function AppContent() {
       return;
     }
 
-    // Agendar nova tarefa
-    if (type === 'SCHEDULE' && source.droppableId.startsWith('tasks-list')) {
-      if (destination.droppableId.startsWith('timeslot-')) {
-        try {
-          const parts = destination.droppableId.split('-');
-          const date = parts[1] + '-' + parts[2] + '-' + parts[3];
-          const hour = parseInt(parts[4], 10);
+    // Drag com tipo SCHEDULE - pode ser agendamento ou replanejamento
+    if (type === 'SCHEDULE' && destination.droppableId.startsWith('timeslot-')) {
+      try {
+        const parts = destination.droppableId.split('-');
+        const date = parts[1] + '-' + parts[2] + '-' + parts[3];
+        const hour = parseInt(parts[4], 10);
 
-          const hora_inicio = `${String(hour).padStart(2, '0')}:00`;
-          const hora_fim = `${String(hour + 1).padStart(2, '0')}:00`;
+        const hora_inicio = `${String(hour).padStart(2, '0')}:00`;
+        const hora_fim = `${String(hour + 1).padStart(2, '0')}:00`;
 
+        // Verifica a origem para saber se é agendamento ou replanejamento
+        if (source.droppableId === 'tasks-list') {
+          // Agendamento inicial: tarefa vem da lista
           addSchedule(draggableId, date, hora_inicio, hora_fim);
           console.log('✅ Tarefa agendada com sucesso!');
-        } catch (error) {
-          console.error('❌ Erro ao agendar:', error.message);
-          alert('❌ Erro ao agendar tarefa: ' + error.message);
+        } else if (source.droppableId.startsWith('timeslot-')) {
+          // Replanejamento: tarefa já está agendada em outro horário
+          const [, tarefa_id, schedule_id] = draggableId.split('-');
+          rescheduleTask(tarefa_id, date, hora_inicio, hora_fim);
+          console.log('✅ Tarefa replanejada com sucesso!');
         }
+      } catch (error) {
+        console.error('❌ Erro:', error.message);
+        alert('❌ Erro: ' + error.message);
       }
-    }
-
-    // Replanear tarefa agendada (TODO: implementar corretamente com dois tipos de Droppable)
-    if (type === 'RESCHEDULE' && destination.droppableId.startsWith('timeslot-')) {
-      // Por enquanto não está funcionando - deixar para próximas fases
-      // quando pudermos arquitetar melhor com múltiplos Droppables
     }
   };
 

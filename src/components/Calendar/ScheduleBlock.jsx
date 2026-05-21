@@ -28,7 +28,7 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
   const topOffset = ((startMinutes - 360) / 60) * 60;
 
   return (
-    <Draggable draggableId={`schedule-${task.id}-${schedule.id}`} index={index} type="RESCHEDULE">
+    <Draggable draggableId={`schedule-${task.id}-${schedule.id}`} index={index} type="SCHEDULE">
       {(provided, snapshot) => (
         <div
           className={`schedule-block ${snapshot.isDragging ? 'dragging' : ''}`}

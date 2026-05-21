@@ -1,4 +1,5 @@
 import { useAppContext } from '../../hooks/useAppContext';
+import ExportButton from '../ExportButton';
 import './Header.css';
 
 export default function Header() {
@@ -29,6 +30,7 @@ export default function Header() {
             <span className="stat-value">{offenderTasks}</span>
           </div>
         )}
+        <ExportButton />
       </div>
     </header>
   );

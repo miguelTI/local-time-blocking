@@ -1,77 +1,65 @@
 import { useAppContext } from '../../hooks/useAppContext';
+import ProjectMetrics from './ProjectMetrics';
 import './MetricsPanel.css';
 
 export default function MetricsPanel() {
-  const { getMetricsByProject, getOffenderTasks } = useAppContext();
-  const metrics = getMetricsByProject();
-  const offenderTasks = getOffenderTasks();
+  const { state, getAllMetrics } = useAppContext();
+  const metrics = getAllMetrics();
+  const projects = state.projects.filter((p) => p.ativo);
 
   return (
     <div className="metrics-panel">
       <h2>📊 Relatório de Métricas</h2>
 
-      <div className="metrics-grid">
-        {metrics.map((metric) => (
-          <div key={metric.projeto_id} className="metric-card">
-            <div className="metric-header">
-              <div className="metric-color" style={{ backgroundColor: metric.cor }} />
-              <h3>{metric.nome}</h3>
-            </div>
-
-            <div className="metric-stats">
-              <div className="stat">
-                <span className="stat-label">Tempo Gasto</span>
-                <span className="stat-value">{metric.tempo_gasto_total.toFixed(1)}h</span>
-              </div>
-              <div className="stat">
-                <span className="stat-label">Concluídas</span>
-                <span className="stat-value stat-completed">
-                  {metric.tarefas_concluidas}
-                </span>
-              </div>
-              <div className="stat">
-                <span className="stat-label">Canceladas</span>
-                <span className="stat-value stat-canceled">
-                  {metric.tarefas_canceladas}
-                </span>
-              </div>
-              <div className="stat">
-                <span className="stat-label">Abertas</span>
-                <span className="stat-value stat-open">
-                  {metric.tarefas_abertas}
-                </span>
-              </div>
-              <div className="stat">
-                <span className="stat-label">Replanejamentos</span>
-                <span className="stat-value stat-reschedule">
-                  {metric.replanejamentos_total}
-                </span>
-              </div>
-            </div>
+      {/* Métricas por Projeto */}
+      <section className="metrics-by-project">
+        <h3>Por Projeto</h3>
+        {projects.length === 0 ? (
+          <p className="empty-state">Nenhum projeto ainda</p>
+        ) : (
+          <div className="metrics-grid">
+            {metrics.por_projeto.map((metric) => {
+              const project = projects.find((p) => p.id === metric.projeto_id);
+              return (
+                <ProjectMetrics
+                  key={metric.projeto_id}
+                  metric={metric}
+                  projectColor={project?.cor}
+                />
+              );
+            })}
           </div>
-        ))}
-      </div>
+        )}
+      </section>
 
-      {offenderTasks.length > 0 && (
-        <div className="offender-section">
-          <h3>⚠️ Tarefas sem Projeto</h3>
-          <p className="offender-message">
-            {offenderTasks.length} tarefa{offenderTasks.length !== 1 ? 's' : ''} em aberto sem estar associada a um projeto.
-          </p>
-          <ul className="offender-list">
-            {offenderTasks.map((task) => (
-              <li key={task.id} className="offender-item">
-                {task.nome}
-              </li>
-            ))}
-          </ul>
+      {/* Tarefas Ofensoras */}
+      <section className="metrics-offenders">
+        <h3>⚠️ Tarefas sem Projeto</h3>
+        <div className="offender-stats">
+          <div className="stat-box">
+            <span className="label">Abertas</span>
+            <span className="value">{metrics.ofensoras.total_abertas}</span>
+          </div>
+          <div className="stat-box">
+            <span className="label">Concluídas</span>
+            <span className="value">{metrics.ofensoras.total_concluidas}</span>
+          </div>
+          <div className="stat-box">
+            <span className="label">Total</span>
+            <span className="value">{metrics.ofensoras.total_tarefas}</span>
+          </div>
         </div>
-      )}
+        {metrics.ofensoras.total_abertas > 0 && (
+          <p className="warning">
+            ⚠️ Você tem {metrics.ofensoras.total_abertas} tarefa(s) sem projeto!
+          </p>
+        )}
+      </section>
 
-      {metrics.length === 0 && offenderTasks.length === 0 && (
+      {projects.length === 0 && metrics.ofensoras.total_tarefas === 0 && (
         <div className="empty-state">
           <p>Nenhuma métrica disponível ainda</p>
-          <small>Crie projetos, tarefas e agende-as para ver as métricas</small>
+          <small>Crie projetos, tarefas e conclua-as para ver as métricas</small>
         </div>
       )}
     </div>

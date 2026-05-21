@@ -152,7 +152,6 @@ export function AppContextProvider({ children }) {
       );
 
       if (!oldSchedule) {
-        console.warn('Schedule não encontrado para esta tarefa:', tarefa_id);
         return prev; // Retorna estado anterior sem mudanças
       }
 

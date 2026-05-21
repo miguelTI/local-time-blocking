@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppContext } from '../../hooks/useAppContext';
 import ProjectList from '../TaskList/ProjectList';
+import TaskList from '../TaskList/TaskList';
 import './Sidebar.css';
 
 export default function Sidebar() {
@@ -37,23 +38,22 @@ export default function Sidebar() {
         {activeTab === 'projects' ? (
           <ProjectList />
         ) : (
-          <div className="offender-tasks">
-            <h3>Tarefas sem Projeto</h3>
-            {offenderTasks.length === 0 ? (
-              <div className="empty-section">
-                <p>✅ Nenhuma tarefa offensora</p>
+          <>
+            <TaskList />
+            {hasOffenders && (
+              <div className="offender-tasks">
+                <h3>⚠️ Offensoras</h3>
+                <ul className="offender-list">
+                  {offenderTasks.map((task) => (
+                    <li key={task.id} className="offender-item">
+                      <span className="warning-icon">⚠️</span>
+                      <span className="task-name">{task.nome}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ) : (
-              <ul className="offender-list">
-                {offenderTasks.map((task) => (
-                  <li key={task.id} className="offender-item">
-                    <span className="warning-icon">⚠️</span>
-                    <span className="task-name">{task.nome}</span>
-                  </li>
-                ))}
-              </ul>
             )}
-          </div>
+          </>
         )}
       </div>
     </aside>

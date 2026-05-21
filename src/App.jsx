@@ -12,21 +12,26 @@ function AppContent() {
   const handleDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
 
+    console.log('🔍 Drag end:', { type, source: source.droppableId, destination: destination?.droppableId, draggableId });
+
     if (!destination) {
       return;
     }
 
     // Agendar nova tarefa
     if (type === 'SCHEDULE' && source.droppableId.startsWith('tasks-list')) {
+      console.log('✅ Detectado drag SCHEDULE from tasks-list');
       if (destination.droppableId.startsWith('timeslot-')) {
         try {
           const parts = destination.droppableId.split('-');
+          console.log('📍 TimeSlot parts:', parts);
           const date = parts[1] + '-' + parts[2] + '-' + parts[3];
           const hour = parseInt(parts[4], 10);
 
           const hora_inicio = `${String(hour).padStart(2, '0')}:00`;
           const hora_fim = `${String(hour + 1).padStart(2, '0')}:00`;
 
+          console.log('📅 Agendando:', { draggableId, date, hora_inicio, hora_fim });
           addSchedule(draggableId, date, hora_inicio, hora_fim);
 
           console.log('✅ Tarefa agendada com sucesso!');

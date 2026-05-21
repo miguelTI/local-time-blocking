@@ -24,6 +24,8 @@ export default function TaskItem({ task, projectColor, index = 0 }) {
 
   const isOffender = !task.projeto_id;
 
+  console.log(`📦 TaskItem rendered with type="SCHEDULE" for task ${task.id}`);
+
   return (
     <Draggable draggableId={task.id} index={index} type="SCHEDULE">
       {(provided, snapshot) => (

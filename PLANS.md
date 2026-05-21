@@ -6,6 +6,47 @@
 
 ---
 
+## 📊 Progresso Geral
+
+```
+Phase 1: Foundation (Setup + State)                   ✅ PHASE COMPLETA
+├─ Sprint 1.1: Project Setup & Architecture          ✅ COMPLETO
+├─ Sprint 1.2: Data Models & Context API              ✅ COMPLETO
+└─ Sprint 1.3: localStorage Integration               ✅ COMPLETO
+
+Phase 2: Core Features (CRUD)
+├─ Sprint 2.1: Projetos CRUD
+├─ Sprint 2.2: Tarefas CRUD
+└─ Sprint 2.3: UI Sidebar + Taskbar
+
+Phase 3: Calendário (Visualização)
+├─ Sprint 3.1: Calendar Layout
+├─ Sprint 3.2: Time Blocks Display
+└─ Sprint 3.3: Drag-Drop Básico
+
+Phase 4: Agendamento (Drag-Drop)
+├─ Sprint 4.1: Drag-Drop para Agendar
+├─ Sprint 4.2: Replanejamento
+└─ Sprint 4.3: Remove from Calendar
+
+Phase 5: Conclusão & Relatórios
+├─ Sprint 5.1: Mark Complete
+├─ Sprint 5.2: Cancel Task
+└─ Sprint 5.3: Relatório de Métricas
+
+Phase 6: Export & Polish
+├─ Sprint 6.1: Export JSON
+├─ Sprint 6.2: Bug Fixes & Refinement
+└─ Sprint 6.3: MVP Release
+```
+
+**Resumo**: 3/18 sprints completas (17% do projeto)  
+**Phase 1 Foundation**: 100% COMPLETA ✅  
+**Próxima**: Phase 2 - Core Features (CRUD)  
+**Última atualização**: 21/05/2026 - Após Sprint 1.3
+
+---
+
 ## 📌 Overview
 
 Plano de desenvolvimento faseado do Time Blocking System, quebrando SPECS.md em fases executáveis com checkpoints claros.
@@ -57,19 +98,23 @@ Phase 6: Export & Polish
 
 **Objetivo**: Configurar projeto Vite + estrutura base
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Criar projeto Vite: `npm create vite@latest time-blocking-system -- --template react`
-- [ ] Instalar dependências: `npm install`
-- [ ] Estruturar pastas (src/components, src/hooks, src/utils, src/context)
-- [ ] Criar `src/App.jsx` base (vazio por enquanto)
-- [ ] Criar `src/main.jsx` (mount app)
-- [ ] Criar `.gitignore`, `README.md` básico
-- [ ] Primeiro commit: "chore: project setup with Vite"
+- [x] Criar projeto Vite: `npm create vite@latest time-blocking-system -- --template react`
+- [x] Instalar dependências: `npm install`
+- [x] Estruturar pastas (src/components, src/hooks, src/utils, src/context)
+- [x] Criar `src/App.jsx` base (vazio por enquanto)
+- [x] Criar `src/main.jsx` (mount app)
+- [x] Criar `.gitignore`, `README.md` básico
+- [x] Primeiro commit: "chore: project setup with Vite"
 
 **Acceptance Criteria**:
 - ✅ Projeto roda: `npm run dev`
 - ✅ Estrutura de pastas criada
 - ✅ Git inicializado e remoto vinculado
+
+**Commit**: `73b2079` - feat: phase-1.1 - Project Setup & Architecture
 
 ---
 
@@ -77,28 +122,43 @@ Phase 6: Export & Polish
 
 **Objetivo**: Definir estado global e Context
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Criar `src/context/AppContext.js`:
-  - Define esquema de estado: { projects: [], tasks: [], schedules: [] }
-  - Funções iniciais: addProject, addTask, addSchedule (stubs)
+- [x] Criar `src/context/AppContext.jsx`:
+  - [x] Define esquema de estado: { projects: [], tasks: [], schedules: [] }
+  - [x] Funções CRUD completas: addProject, updateProject, deleteProject, getProjects
+  - [x] Funções CRUD tasks: addTask, updateTask, deleteTask, getTasks, getTasksByProject, getOffenderTasks
+  - [x] addSchedule com validações
   
-- [ ] Criar `src/hooks/useAppContext.js`:
-  - Custom hook para usar context facilmente
+- [x] Criar `src/hooks/useAppContext.jsx`:
+  - [x] Custom hook para usar context facilmente
+  - [x] Validação de Provider
   
-- [ ] Criar `src/utils/uuid.js`:
-  - Função para gerar UUIDs (usar crypto simples ou lib)
+- [x] Criar `src/utils/uuid.js`:
+  - [x] Gera UUIDs v4 corretamente (RFC 4122)
   
-- [ ] Criar `src/utils/validation.js`:
-  - Validações: nome obrigatório, hora válida, etc
+- [x] Criar `src/utils/validation.js`:
+  - [x] validateProjectName (nome obrigatório, max 100 chars)
+  - [x] validateTaskName (nome obrigatório, max 255 chars)
+  - [x] validateScheduleTime (formato HH:MM, validação de range)
+  - [x] validateDate (formato YYYY-MM-DD)
   
-- [ ] Criar `src/App.jsx`:
-  - Wrapear com AppContext.Provider
-  - Layout base (header, sidebar, main)
+- [x] Atualizar `src/App.jsx`:
+  - [x] Wrapear com AppContextProvider
+  - [x] Layout base (Header, Sidebar, MainPanel)
+  - [x] CSS flexbox responsivo
 
 **Acceptance Criteria**:
-- ✅ Context criado e testável (console.log)
+- ✅ Context criado e testável
 - ✅ UUIDs gerados corretamente
 - ✅ Validações funcionam
+- ✅ npm run dev sem erros
+
+**Commits**: 
+- `88c9cc2` - feat: phase-1.2 - Data Models & Context API
+- `d7a6c30` - chore: setup GitHub Pages deployment
+- `d429b8f` - chore: move index.html to root for Vite
 
 ---
 
@@ -106,27 +166,31 @@ Phase 6: Export & Polish
 
 **Objetivo**: Persistência de dados
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Criar `src/utils/storage.js`:
-  - `saveToLocalStorage(state)`: salva tudo
-  - `loadFromLocalStorage()`: carrega tudo
-  - `clearLocalStorage()`: limpa (para debug)
-  - Tratamento de erro (quota exceeded)
+- [x] Criar `src/utils/storage.js`:
+  - [x] `saveToLocalStorage(state)`: salva tudo
+  - [x] `loadFromLocalStorage()`: carrega tudo
+  - [x] `clearLocalStorage()`: limpa (para debug)
+  - [x] Tratamento de erro (quota exceeded)
   
-- [ ] Criar `src/hooks/useLocalStorage.js`:
-  - Hook que sincroniza estado com localStorage
-  - Auto-save a cada mudança
+- [x] Criar `src/hooks/useLocalStorage.js`:
+  - [x] Hook que sincroniza estado com localStorage
+  - [x] Auto-save a cada mudança
   
-- [ ] Integrar em AppContext:
-  - useEffect que dispara saveToLocalStorage() a cada mudança de state
-  - useEffect no mount que carrega dados salvos
+- [x] Integrar em AppContext:
+  - [x] useEffect que dispara saveToLocalStorage() a cada mudança de state
+  - [x] useEffect no mount que carrega dados salvos
   
-- [ ] Testar: reload página, dados persistem
+- [x] Testar: reload página, dados persistem
 
 **Acceptance Criteria**:
 - ✅ Dados salvam em localStorage
 - ✅ Dados carregam ao abrir página
 - ✅ Sem erros de JSON stringify/parse
+
+**Commit**: `1b65022` - feat: phase-1.3 - localStorage Integration
 
 ---
 

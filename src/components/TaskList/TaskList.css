@@ -56,4 +56,10 @@
 .tasks-list {
   max-height: 400px;
   overflow-y: auto;
+  transition: background-color 0.2s;
+}
+
+.tasks-list.drag-over {
+  background-color: #f0f8ff;
+  border: 2px dashed #3b82f6;
 }

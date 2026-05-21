@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import { useAppContext } from '../../hooks/useAppContext';
 import TaskForm from './TaskForm';
 import TaskItem from './TaskItem';
@@ -42,15 +43,25 @@ export default function TaskList() {
           <small>Clique em "+ Nova" para criar uma</small>
         </div>
       ) : (
-        <div className="tasks-list">
-          {openTasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              projectColor={getProjectColor(task.projeto_id)}
-            />
-          ))}
-        </div>
+        <Droppable droppableId="tasks-list">
+          {(provided, snapshot) => (
+            <div
+              className={`tasks-list ${snapshot.isDraggingOver ? 'drag-over' : ''}`}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {openTasks.map((task, index) => (
+                <TaskItem
+                  key={task.id}
+                  task={task}
+                  projectColor={getProjectColor(task.projeto_id)}
+                  index={index}
+                />
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       )}
     </div>
   );

@@ -13,7 +13,6 @@ export default function ExportButton() {
       const filename = exportToJSON(state);
       setShowFeedback(true);
       setTimeout(() => setShowFeedback(false), 3000);
-      console.log(`✅ Dados exportados para ${filename}`);
     } catch (error) {
       console.error('Erro ao exportar:', error);
       alert('❌ Erro ao exportar dados');

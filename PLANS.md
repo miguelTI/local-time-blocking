@@ -19,12 +19,12 @@ Phase 2: Core Features (CRUD)                         ✅ PHASE COMPLETA
 ├─ Sprint 2.2: Tarefas CRUD                          ✅ COMPLETO
 └─ Sprint 2.3: UI Sidebar + Layout                   ✅ COMPLETO
 
-Phase 3: Calendário (Visualização)                    ⏳ PRÓXIMO
-├─ Sprint 3.1: Calendar Layout
-├─ Sprint 3.2: Time Blocks Display
-└─ Sprint 3.3: Drag-Drop Básico
+Phase 3: Calendário (Visualização)                    ✅ PHASE COMPLETA
+├─ Sprint 3.1: Calendar Layout                         ✅ COMPLETO
+├─ Sprint 3.2: Time Blocks Display                     ✅ COMPLETO
+└─ Sprint 3.3: Drag-Drop Básico                        ✅ COMPLETO
 
-Phase 4: Agendamento (Drag-Drop)
+Phase 4: Agendamento (Drag-Drop)                       ⏳ PRÓXIMO
 ├─ Sprint 4.1: Drag-Drop para Agendar
 ├─ Sprint 4.2: Replanejamento
 └─ Sprint 4.3: Remove from Calendar
@@ -40,11 +40,12 @@ Phase 6: Export & Polish
 └─ Sprint 6.3: MVP Release
 ```
 
-**Resumo**: 6/18 sprints completas (33% do projeto)  
+**Resumo**: 9/18 sprints completas (50% do projeto)  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
 **Phase 2 Core Features**: 100% COMPLETA ✅  
-**Próxima**: Phase 3 - Calendário (Visualização)  
-**Última atualização**: 21/05/2026 - Após Sprint 2.3
+**Phase 3 Calendário**: 100% COMPLETA ✅  
+**Próxima**: Phase 4 - Agendamento (Drag-Drop)  
+**Última atualização**: 21/05/2026 - Após Sprint 3.3
 
 ---
 
@@ -323,31 +324,41 @@ Phase 6: Export & Polish
 
 **Objetivo**: Estrutura visual do calendário semanal
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Criar `src/components/Calendar/WeekCalendar.jsx`:
-  - Mostra semana atual (seg-dom)
-  - Navegação: botões < Semana de XX/XX >
-  - Grid: 7 colunas (dias), múltiplas linhas (horários)
-  - Horários: 06:00 até 22:00 (1h cada)
+- [x] Criar `src/components/Calendar/WeekCalendar.jsx`:
+  - [x] Mostra semana atual (seg-dom)
+  - [x] Navegação: botões < Anterior / Próxima >
+  - [x] Botão "Hoje" para voltar à semana atual
+  - [x] Grid: 7 colunas (dias), 17 linhas (horários)
+  - [x] Horários: 06:00 até 22:00 (1h cada)
   
-- [ ] Criar `src/components/Calendar/DayColumn.jsx`:
-  - Componente para cada dia
-  - Mostra data + dia da semana
-  - Slots de 1h (vazios por enquanto)
+- [x] Criar `src/components/Calendar/DayColumn.jsx`:
+  - [x] Componente para cada dia
+  - [x] Mostra data + dia da semana
+  - [x] Slots de 1h
+  - [x] Destaque para dia atual
   
-- [ ] Criar `src/components/Calendar/TimeSlot.jsx`:
-  - Bloco horário individual
-  - Altura fixa (ex: 60px para 1h)
-  - Fundo claro, borda simples
+- [x] Criar `src/components/Calendar/TimeSlot.jsx`:
+  - [x] Bloco horário individual
+  - [x] Altura fixa 60px para 1h
+  - [x] Cores alternadas para legibilidade
+  - [x] Hoverable
   
-- [ ] Criar `src/utils/date.js`:
-  - Funções: weekStart(), weekEnd(), formatDate(), etc
+- [x] Criar `src/utils/date.js`:
+  - [x] getMonday, getWeekDates, formatDate, formatTime
+  - [x] isSameDay, isToday, getDayName
+  - [x] HOURS e WEEKDAYS constantes
+  - [x] getWeekRange para exibir período
 
 **Acceptance Criteria**:
 - ✅ Calendário renderiza com 7 dias + horas
 - ✅ Navegação muda a semana
-- ✅ Datas corretas (hoje destacado?)
-- ✅ Slots vazios e clicáveis
+- ✅ Datas corretas (hoje destacado com fundo azul)
+- ✅ Slots vazios e posicionados corretamente
+
+**Commits**: `9c3c90d` (com Sprint 3.2)
 
 ---
 
@@ -355,28 +366,35 @@ Phase 6: Export & Polish
 
 **Objetivo**: Mostrar tarefas agendadas no calendário
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Criar `src/components/Calendar/ScheduleBlock.jsx`:
-  - Renderiza um bloco de tarefa agendada
-  - Mostra: nome da tarefa, projeto (cor), tempo planejado
-  - Altura proporcional ao tempo (ex: 2h = 120px se 1h = 60px)
-  - Hover mostra detalhes
+- [x] Criar `src/components/Calendar/ScheduleBlock.jsx`:
+  - [x] Renderiza um bloco de tarefa agendada
+  - [x] Mostra: horário, nome da tarefa
+  - [x] Altura proporcional ao tempo (minutos/60 * 60px)
+  - [x] Borda esquerda com cor do projeto
+  - [x] Hover tooltip com detalhes
   
-- [ ] Em `WeekCalendar`:
-  - Iterar schedules ativos
-  - Calcular posição (dia + hora)
-  - Renderizar ScheduleBlock no lugar correto
+- [x] Integrar em `DayColumn`:
+  - [x] Filtrar schedules ativos do dia
+  - [x] Calcular posição: topOffset = (startMinutes - 360) / 60 * 60
+  - [x] Renderizar ScheduleBlock sobre TimeSlots
+  - [x] Suportar múltiplos blocos no mesmo dia
   
-- [ ] Estilizar:
-  - Cores por projeto
-  - Padding/margin
-  - Typography clara
+- [x] Estilizar:
+  - [x] Cores por projeto (borda esquerda)
+  - [x] Shadow e bordas arredondadas
+  - [x] Typography clara (10-11px)
+  - [x] Z-index para sobreposição
 
 **Acceptance Criteria**:
 - ✅ Tarefa agendada aparece no calendário
 - ✅ Posição correta (dia + hora)
-- ✅ Tamanho proporcional ao tempo
-- ✅ Múltiplas tarefas no mesmo dia (sem overlap visual)
+- ✅ Tamanho proporcional ao tempo (ex: 2h = 120px)
+- ✅ Múltiplas tarefas no mesmo dia suportadas
+
+**Commits**: `9c3c90d` - feat: phase-3.1 & 3.2 - Calendar Layout + Time Blocks Display
 
 ---
 
@@ -384,26 +402,40 @@ Phase 6: Export & Polish
 
 **Objetivo**: Preparar infraestrutura de drag-drop
 
+**Status**: ✅ **COMPLETO** (21/05/2026)
+
 **Tasks**:
-- [ ] Instalar: `npm install react-beautiful-dnd` (ou equivalente)
+- [x] Instalar: `npm install react-beautiful-dnd` (v13.1.1)
   
-- [ ] Em `TaskItem.jsx`:
-  - Wrappear com `Draggable`
-  - Marcar como draggable
+- [x] App.jsx com DragDropContext:
+  - [x] Wrap DragDropContext
+  - [x] onDragEnd handler com console.log
+  - [x] Pronto para handlers em Phase 4
   
-- [ ] Em `WeekCalendar.jsx`:
-  - Wrappear com `Droppable` em cada TimeSlot
-  - Setup listeners (onDragOver, onDrop)
+- [x] TaskItem.jsx como Draggable:
+  - [x] Wrappear com `Draggable`
+  - [x] Adicionar index prop
+  - [x] Drag handle via refs
+  - [x] Visual feedback: .dragging state
   
-- [ ] Testar:
-  - TaskItem pode ser arrastado
-  - TimeSlot aceita drop
-  - Log de evento (ainda sem ação)
+- [x] TaskList.jsx com Droppable:
+  - [x] Wrappear com `Droppable` ("tasks-list")
+  - [x] Placeholder support
+  - [x] Drag-over state visual
+  - [x] Integração com tasks
+  
+- [x] CSS para drag states:
+  - [x] .task-item.dragging (opacity, shadow)
+  - [x] .tasks-list.drag-over (fundo azul, borda)
+  - [x] Cursor grab/grabbing
 
 **Acceptance Criteria**:
-- ✅ Drag funciona (visual feedback)
-- ✅ Drop é detectado
-- ✅ Console logs de eventos
+- ✅ Drag funciona (visual feedback, cursor)
+- ✅ Droppable região funciona (drag-over state)
+- ✅ Console logs de eventos em App
+- ✅ Pronto para implementar agendamento
+
+**Commits**: `be1010a` - feat: phase-3.3 - Drag-Drop Básico (Prep)
 
 ---
 

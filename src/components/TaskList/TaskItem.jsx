@@ -5,7 +5,7 @@ import CompleteTaskModal from '../Common/CompleteTaskModal';
 import './TaskItem.css';
 
 export default function TaskItem({ task, projectColor, index = 0 }) {
-  const { deleteTask, getProjects, completeTask } = useAppContext();
+  const { deleteTask, getProjects, completeTask, cancelTask } = useAppContext();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const projects = getProjects();
@@ -30,6 +30,16 @@ export default function TaskItem({ task, projectColor, index = 0 }) {
       setShowCompleteModal(false);
     } catch (err) {
       console.error('Erro ao concluir:', err);
+    }
+  };
+
+  const handleCancel = () => {
+    if (window.confirm(`Cancelar tarefa "${task.nome}"?`)) {
+      try {
+        cancelTask(task.id);
+      } catch (err) {
+        console.error('Erro ao cancelar:', err);
+      }
     }
   };
 
@@ -62,6 +72,13 @@ export default function TaskItem({ task, projectColor, index = 0 }) {
                 title="Concluir"
               >
                 ✓
+              </button>
+              <button
+                className="action-btn cancel"
+                onClick={handleCancel}
+                title="Cancelar"
+              >
+                ✘
               </button>
               <button
                 className="action-btn delete"

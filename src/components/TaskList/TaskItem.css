@@ -4,6 +4,16 @@
   padding: 10px 12px;
   border-bottom: 1px solid #f0f0f0;
   transition: background-color 0.2s;
+  cursor: grab;
+}
+
+.task-item.dragging {
+  background-color: #e0f2fe;
+  border: 1px solid #3b82f6;
+  border-radius: 4px;
+  opacity: 0.7;
+  cursor: grabbing;
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }
 
 .task-item:last-child {

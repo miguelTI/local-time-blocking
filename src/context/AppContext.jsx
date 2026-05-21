@@ -248,6 +248,42 @@ export function AppContextProvider({ children }) {
     }));
   }, []);
 
+  const getMetricsByProject = useCallback(() => {
+    const projects = state.projects.filter((p) => p.ativo);
+
+    return projects.map((project) => {
+      const projectTasks = state.tasks.filter(
+        (t) => t.projeto_id === project.id && t.ativo === false
+      );
+
+      const completedTasks = projectTasks.filter((t) => t.estado === 'concluída');
+      const canceledTasks = projectTasks.filter((t) => t.estado === 'cancelada');
+      const openTasks = state.tasks.filter(
+        (t) => t.projeto_id === project.id && t.estado === 'aberta'
+      );
+
+      const totalTimeSpent = completedTasks.reduce(
+        (sum, t) => sum + (t.tempo_gasto || 0),
+        0
+      );
+
+      const totalReschedules = state.tasks
+        .filter((t) => t.projeto_id === project.id)
+        .reduce((sum, t) => sum + (t.historico_replanejamentos || 0), 0);
+
+      return {
+        projeto_id: project.id,
+        nome: project.nome,
+        cor: project.cor,
+        tempo_gasto_total: totalTimeSpent,
+        tarefas_concluidas: completedTasks.length,
+        tarefas_canceladas: canceledTasks.length,
+        tarefas_abertas: openTasks.length,
+        replanejamentos_total: totalReschedules,
+      };
+    });
+  }, [state.projects, state.tasks]);
+
   const value = {
     state,
     addProject,
@@ -265,6 +301,7 @@ export function AppContextProvider({ children }) {
     unscheduleTask,
     completeTask,
     cancelTask,
+    getMetricsByProject,
   };
 
   return (

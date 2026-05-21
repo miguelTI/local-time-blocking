@@ -1,6 +1,7 @@
-import { createContext, useState, useCallback } from 'react';
+import { createContext, useState, useCallback, useEffect } from 'react';
 import { generateUUID } from '../utils/uuid';
 import { validateProjectName, validateTaskName, validateScheduleTime, validateDate } from '../utils/validation';
+import { saveToLocalStorage, loadFromLocalStorage } from '../utils/storage';
 
 export const AppContext = createContext();
 
@@ -140,6 +141,17 @@ export function AppContextProvider({ children }) {
 
     return newSchedule;
   }, [updateTask]);
+
+  useEffect(() => {
+    const savedState = loadFromLocalStorage();
+    if (savedState) {
+      setState(savedState);
+    }
+  }, []);
+
+  useEffect(() => {
+    saveToLocalStorage(state);
+  }, [state]);
 
   const value = {
     state,

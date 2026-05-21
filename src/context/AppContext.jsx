@@ -152,10 +152,9 @@ export function AppContextProvider({ children }) {
       );
 
       if (!oldSchedule) {
-        throw new Error('Schedule não encontrado para esta tarefa');
+        console.warn('Schedule não encontrado para esta tarefa:', tarefa_id);
+        return prev; // Retorna estado anterior sem mudanças
       }
-
-      const task = prev.tasks.find((t) => t.id === tarefa_id);
 
       return {
         ...prev,

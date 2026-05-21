@@ -29,11 +29,16 @@ function AppContent() {
         // Verifica a origem para saber se é agendamento ou replanejamento
         if (source.droppableId === 'tasks-list') {
           // Agendamento inicial: tarefa vem da lista
+          console.log('📅 AGENDAMENTO - draggableId:', draggableId);
           addSchedule(draggableId, date, hora_inicio, hora_fim);
           console.log('✅ Tarefa agendada com sucesso!');
         } else if (source.droppableId.startsWith('timeslot-')) {
           // Replanejamento: tarefa já está agendada em outro horário
-          const [, tarefa_id, schedule_id] = draggableId.split('-');
+          const parts = draggableId.split('-');
+          console.log('🔄 REPLANEJAMENTO - draggableId:', draggableId, 'parts:', parts);
+          const tarefa_id = parts[1];
+          const schedule_id = parts[2];
+          console.log('📍 Tentando replanear:', { tarefa_id, schedule_id, date, hora_inicio, hora_fim });
           rescheduleTask(tarefa_id, date, hora_inicio, hora_fim);
           console.log('✅ Tarefa replanejada com sucesso!');
         }

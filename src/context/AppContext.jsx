@@ -142,6 +142,50 @@ export function AppContextProvider({ children }) {
     return newSchedule;
   }, [updateTask]);
 
+  const rescheduleTask = useCallback((tarefa_id, nova_data, nova_hora_inicio, nova_hora_fim) => {
+    validateDate(nova_data);
+    validateScheduleTime(nova_hora_inicio, nova_hora_fim);
+
+    setState((prev) => {
+      const oldSchedule = prev.schedules.find(
+        (s) => s.tarefa_id === tarefa_id && s.ativo
+      );
+
+      if (!oldSchedule) {
+        throw new Error('Schedule não encontrado para esta tarefa');
+      }
+
+      const task = prev.tasks.find((t) => t.id === tarefa_id);
+
+      return {
+        ...prev,
+        schedules: [
+          ...prev.schedules.map((s) =>
+            s.id === oldSchedule.id ? { ...s, ativo: false } : s
+          ),
+          {
+            id: generateUUID(),
+            tarefa_id,
+            data: nova_data,
+            hora_inicio: nova_hora_inicio,
+            hora_fim: nova_hora_fim,
+            data_criacao: Date.now(),
+            ativo: true,
+          },
+        ],
+        tasks: prev.tasks.map((t) =>
+          t.id === tarefa_id
+            ? {
+                ...t,
+                historico_replanejamentos: t.historico_replanejamentos + 1,
+                datas_replanejamento: [...t.datas_replanejamento, Date.now()],
+              }
+            : t
+        ),
+      };
+    });
+  }, []);
+
   useEffect(() => {
     const savedState = loadFromLocalStorage();
     if (savedState) {
@@ -152,6 +196,18 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     saveToLocalStorage(state);
   }, [state]);
+
+  const unscheduleTask = useCallback((tarefa_id) => {
+    setState((prev) => ({
+      ...prev,
+      schedules: prev.schedules.map((s) =>
+        s.tarefa_id === tarefa_id && s.ativo ? { ...s, ativo: false } : s
+      ),
+      tasks: prev.tasks.map((t) =>
+        t.id === tarefa_id ? { ...t, estado: 'aberta' } : t
+      ),
+    }));
+  }, []);
 
   const value = {
     state,
@@ -166,6 +222,8 @@ export function AppContextProvider({ children }) {
     getTasksByProject,
     getOffenderTasks,
     addSchedule,
+    rescheduleTask,
+    unscheduleTask,
   };
 
   return (

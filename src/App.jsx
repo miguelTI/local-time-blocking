@@ -30,16 +30,14 @@ function AppContent() {
         if (source.droppableId === 'tasks-list') {
           // Agendamento inicial: tarefa vem da lista
           addSchedule(draggableId, date, hora_inicio, hora_fim);
-          console.log('✅ Tarefa agendada com sucesso!');
         } else if (source.droppableId.startsWith('timeslot-')) {
           // Replanejamento: tarefa já está agendada em outro horário
           const [, tarefa_id] = draggableId.split('_');
           rescheduleTask(tarefa_id, date, hora_inicio, hora_fim);
-          console.log('✅ Tarefa replanejada com sucesso!');
         }
       } catch (error) {
-        console.error('❌ Erro:', error.message);
-        alert('❌ Erro: ' + error.message);
+        console.error('Erro ao agendar tarefa:', error.message);
+        alert('Erro: ' + error.message);
       }
     }
   };

@@ -754,34 +754,34 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 
 **Objetivo**: Criar, listar, editar, deletar tipos de tarefa
 
-**Status**: ⏳ **PLANEJADO** (a iniciar)
+**Status**: ✅ **COMPLETO** (22/05/2026)
 
 **Tasks**:
-- [ ] Atualizar `src/context/AppContext.jsx`:
-  - [ ] Adicionar estado `taskTypes: []`
-  - [ ] `addTaskType(name, color)`: cria novo tipo
-  - [ ] `updateTaskType(id, { name?, color? })`: edita tipo
-  - [ ] `deleteTaskType(id)`: soft delete (ativo: false)
-  - [ ] `getTaskTypes()`: retorna todos ativos
+- [x] Atualizar `src/context/AppContext.jsx`:
+  - [x] Adicionar estado `taskTypes: []`
+  - [x] `addTaskType(name, color)`: cria novo tipo
+  - [x] `updateTaskType(id, { name?, color? })`: edita tipo
+  - [x] `deleteTaskType(id)`: soft delete (ativo: false)
+  - [x] `getTaskTypes()`: retorna todos ativos
   
-- [ ] Criar `src/components/TaskList/TaskTypeForm.jsx`:
-  - [ ] Input para nome do tipo
-  - [ ] Color picker para cor (opcional)
-  - [ ] Botão "Criar Tipo"
-  - [ ] Validações + mensagens de erro
+- [x] Criar `src/components/TaskList/TaskTypeForm.jsx`:
+  - [x] Input para nome do tipo
+  - [x] Color picker para cor (opcional)
+  - [x] Botão "Criar Tipo"
+  - [x] Validações + mensagens de erro
   
-- [ ] Criar `src/components/TaskList/TaskTypeList.jsx`:
-  - [ ] Lista de tipos com cores
-  - [ ] Botão delete com confirmação
-  - [ ] Botão edit (abre form)
-  - [ ] Empty state com sugestão de tipos padrão (Bug, Feature, Refactor, Meeting, Admin)
+- [x] Criar `src/components/TaskList/TaskTypeList.jsx`:
+  - [x] Lista de tipos com cores
+  - [x] Botão delete com confirmação
+  - [x] Botão edit (abre form)
+  - [x] Empty state com sugestão de tipos padrão (Bug, Feature, Refactor, Meeting, Admin)
   
-- [ ] Integrar no TaskList/Sidebar:
-  - [ ] Aba/seção para "Tipos de Tarefa"
-  - [ ] Mostrar TaskTypeForm e TaskTypeList
+- [x] Integrar no TaskList/Sidebar:
+  - [x] Aba/seção para "Tipos de Tarefa"
+  - [x] Mostrar TaskTypeForm e TaskTypeList
   
-- [ ] Atualizar localStorage:
-  - [ ] Salvar/carregar taskTypes junto com projects e tasks
+- [x] Atualizar localStorage:
+  - [x] Salvar/carregar taskTypes junto com projects e tasks
 
 **Acceptance Criteria**:
 - ✅ Criar tipo: nome e cor aparecem na lista
@@ -790,7 +790,7 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 - ✅ Dados persistem em localStorage
 - ✅ Sem console errors
 
-**Commit**: `[será preenchido após implementação]`
+**Commit**: `cb48483` - feat: phase-7.1 - Task Types CRUD implementation
 
 ---
 
@@ -798,7 +798,7 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 
 **Objetivo**: Integrar tipos de tarefa com tarefas existentes
 
-**Status**: ⏳ **PLANEJADO** (após 7.1)
+**Status**: ⏳ **PRÓXIMO** (após 7.1)
 
 **Tasks**:
 - [ ] Atualizar modelo de Tarefa em SPECS.md (se necessário):

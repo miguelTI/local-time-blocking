@@ -571,6 +571,169 @@ Quando você (humano) disser "Começar", faça exatamente:
 
 ---
 
+## 🚀 Deployment Guidelines (CRÍTICO PARA AGENTES LLM)
+
+**VERSÃO**: 1.0  
+**DATA**: 22 de Maio de 2026  
+**IMPORTÂNCIA**: ⚠️ CRÍTICO - NUNCA ESQUECER ISTO
+
+Este projeto usa **GitHub Pages** com deployment automático. As instruções a seguir são OBRIGATÓRIAS e devem ser seguidas EXATAMENTE. Veja também: **DEPLOY.md** (documentação completa).
+
+### 🔴 Regra de Ouro: NUNCA Sobrescreva Commits
+
+**REGRA 1: Commits são história. Nunca os sobrescreva sem verificação explícita do usuário.**
+
+```bash
+# ❌ PROIBIDO - Sobrescreve história
+git push -f origin gh-pages
+
+# ❌ PROIBIDO - Mesmo com lease
+git push --force-with-lease origin gh-pages
+
+# ✅ CORRETO - Sempre use push normal
+git push origin gh-pages
+```
+
+**Por que isto importa**:
+- Cada commit na branch `gh-pages` representa um deployment
+- Sobrescrever commits = perder histórico de deployments
+- Pode quebrar rollback se algo der errado
+- Violação de integridade git
+
+**Se push falhar**:
+1. **PRIMEIRO**: Verifique o que está no remote:
+   ```bash
+   git log origin/gh-pages --oneline -10
+   ```
+2. **SEGUNDO**: Puxe as mudanças:
+   ```bash
+   git pull origin gh-pages
+   ```
+3. **TERCEIRO**: Resolva conflitos e faça commit limpo
+4. **NUNCA**: Use force push automaticamente
+
+### ✅ Como Funciona GitHub Pages (Automático)
+
+**GitHub Pages é completamente automático:**
+
+```
+Você faz push para gh-pages
+         ↓
+GitHub detecta automaticamente
+         ↓
+"Pages Build and Deployment" workflow roda (automático, você não faz nada)
+         ↓
+Conteúdo servido em: https://miguelti.github.io/local-time-blocking/
+```
+
+**IMPORTANTE**: 
+- ❌ NÃO crie workflows manualmente
+- ❌ NÃO tente triggerar workflows
+- ❌ NÃO aguarde workflow executions
+- ✅ Apenas faça push para gh-pages e aguarde 1-2 minutos
+
+### 📂 Estrutura Correta da Branch gh-pages
+
+A branch `gh-pages` deve conter **SOMENTE**:
+
+```
+gh-pages/
+├── assets/           # CSS, JS, imagens (pasta completa)
+└── index.html        # Entrada HTML
+```
+
+**NUNCA inclua**:
+- ❌ `dist/` folder (extraia apenas assets/ + index.html)
+- ❌ `node_modules/`
+- ❌ `src/` folders
+- ❌ `package.json`
+- ❌ Arquivos de configuração
+
+**Como verificar**:
+```bash
+git switch gh-pages
+git ls-tree -r HEAD
+# Deve mostrar APENAS: assets/ (tree) + index.html (blob)
+```
+
+### 🎯 Quando Fazer Deploy na Evolution Workflow
+
+**Para cada Feature implementada em PLANS.md**:
+
+1. **Desenvolvimento**: Trabalhe na branch `claude/feature-[nome]`
+2. **Testes Locais**: `npm run dev` + navegador
+3. **Build**: `npm run build` sem erros
+4. **Commit Final**: Push da feature branch
+5. **Deploy**: Apenas quando feature está COMPLETA
+   ```bash
+   npm run deploy
+   ```
+6. **Aguarde**: 1-2 minutos para GitHub processar
+7. **Valide**: Visite https://miguelti.github.io/local-time-blocking/
+
+**Deploy é a ÚLTIMA ação** após todos os commits e testes.
+
+### 🛡️ Verificação Antes de Qualquer Push para gh-pages
+
+ANTES de fazer qualquer operação em `gh-pages`:
+
+```bash
+# 1. Verifique o que existe no remote
+git log origin/gh-pages --oneline -5
+
+# 2. Compare com local se necessário
+git log gh-pages --oneline -5
+
+# 3. SE os commits parecem corretos: NUNCA force push
+# 4. SE precisa adicionar mudanças: puxe primeiro
+git pull origin gh-pages
+
+# 5. Faça commit limpo das mudanças
+git add .
+git commit -m "docs: update gh-pages deployment"
+
+# 6. Push normalmente
+git push origin gh-pages
+```
+
+### 📋 Checklist Para Deploy
+
+- [ ] Todos os commits feitos na feature branch
+- [ ] `npm run build` executa sem erros
+- [ ] `dist/` folder criado com assets/ + index.html
+- [ ] Verificar: `git status` limpo
+- [ ] Remote correto: `git remote -v` aponta a GitHub
+- [ ] Executar: `npm run deploy`
+- [ ] Aguardar: 1-2 minutos
+- [ ] Validar: Acessar URL live e verificar
+
+### 🚫 Coisas Que Quebram Deploy
+
+❌ **NUNCA FAÇA**:
+- Force push para `gh-pages` sem verificação
+- Commits diretos em `gh-pages` (sempre via `npm run deploy`)
+- Incluir `dist/` folder em commits da feature branch
+- Mudar settings de GitHub Pages
+- Mergear `gh-pages` em `main` ou feature branches
+- Usar `--no-verify` ou skip hooks
+- Assumir que workflow vai falhar e forçar algo
+
+✅ **SEMPRE FAÇA**:
+- Use `git push origin gh-pages` (push normal)
+- Verifique commits antes de qualquer operação
+- Aguarde processing time (GitHub é automático)
+- Teste build localmente antes de deploy
+- Documente cada deploy em mensagem de commit
+
+### 🔗 Referências
+
+- **DEPLOY.md**: Documentação técnica completa (troubleshooting, estrutura, etc.)
+- **npm run deploy**: Comando que gerencia gh-pages automaticamente
+- **GitHub Pages URL**: https://miguelti.github.io/local-time-blocking/
+- **Repository Settings**: Sempre "Deploy from a branch" → gh-pages
+
+---
+
 ## ✅ Aprovação Final
 
 - **Revisor**: Usuário

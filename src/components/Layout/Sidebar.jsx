@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAppContext } from '../../hooks/useAppContext';
 import ProjectList from '../TaskList/ProjectList';
 import TaskList from '../TaskList/TaskList';
+import TaskTypeForm from '../TaskList/TaskTypeForm'; // NOVO v1.1
+import TaskTypeList from '../TaskList/TaskTypeList'; // NOVO v1.1
 import './Sidebar.css';
 
 export default function Sidebar() {
@@ -32,12 +34,18 @@ export default function Sidebar() {
             <span className="badge warning">{offenderTasks.length}</span>
           )}
         </button>
+        <button
+          className={`tab-btn ${activeTab === 'types' ? 'active' : ''}`}
+          onClick={() => setActiveTab('types')}
+        >
+          🏷️ Tipos
+        </button>
       </div>
 
       <div className="sidebar-content">
         {activeTab === 'projects' ? (
           <ProjectList />
-        ) : (
+        ) : activeTab === 'tasks' ? (
           <>
             <TaskList />
             {hasOffenders && (
@@ -53,6 +61,11 @@ export default function Sidebar() {
                 </ul>
               </div>
             )}
+          </>
+        ) : (
+          <>
+            <TaskTypeForm />
+            <TaskTypeList />
           </>
         )}
       </div>

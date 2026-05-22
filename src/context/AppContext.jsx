@@ -10,6 +10,7 @@ export function AppContextProvider({ children }) {
     projects: [],
     tasks: [],
     schedules: [],
+    taskTypes: [], // NOVO v1.1
   });
 
   const addProject = useCallback((nome, cor = null) => {
@@ -331,6 +332,57 @@ export function AppContextProvider({ children }) {
     };
   }, [state.projects, state.tasks, getMetricsForProject, getOffenderMetrics]);
 
+  // Task Types CRUD (NOVO v1.1)
+  const addTaskType = useCallback((nome, cor = null) => {
+    if (!nome || nome.trim().length === 0) {
+      throw new Error('Nome do tipo de tarefa é obrigatório');
+    }
+    if (nome.length > 100) {
+      throw new Error('Nome não pode ter mais de 100 caracteres');
+    }
+
+    const newTaskType = {
+      id: generateUUID(),
+      nome: nome.trim(),
+      cor: cor || null,
+      data_criacao: Date.now(),
+      ativo: true,
+    };
+
+    setState((prev) => ({
+      ...prev,
+      taskTypes: [...prev.taskTypes, newTaskType],
+    }));
+
+    return newTaskType;
+  }, []);
+
+  const updateTaskType = useCallback((id, updates) => {
+    if (updates.nome && updates.nome.length > 100) {
+      throw new Error('Nome não pode ter mais de 100 caracteres');
+    }
+
+    setState((prev) => ({
+      ...prev,
+      taskTypes: prev.taskTypes.map((tt) =>
+        tt.id === id ? { ...tt, ...updates } : tt
+      ),
+    }));
+  }, []);
+
+  const deleteTaskType = useCallback((id) => {
+    setState((prev) => ({
+      ...prev,
+      taskTypes: prev.taskTypes.map((tt) =>
+        tt.id === id ? { ...tt, ativo: false } : tt
+      ),
+    }));
+  }, []);
+
+  const getTaskTypes = useCallback(() => {
+    return state.taskTypes.filter((tt) => tt.ativo);
+  }, [state.taskTypes]);
+
   const value = {
     state,
     addProject,
@@ -352,6 +404,11 @@ export function AppContextProvider({ children }) {
     getMetricsForProject,
     getOffenderMetrics,
     getAllMetrics,
+    // Task Types CRUD (NOVO v1.1)
+    addTaskType,
+    updateTaskType,
+    deleteTaskType,
+    getTaskTypes,
   };
 
   return (

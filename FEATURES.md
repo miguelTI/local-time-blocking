@@ -1,8 +1,12 @@
 # Time Blocking System - Features Definition
 
-**Versão**: 1.0  
-**Data**: 21 de Maio de 2026  
-**Status**: ✅ Aprovado
+**Versão**: 1.1  
+**Data**: 22 de Maio de 2026  
+**Status**: ✅ Aprovado (v1.1 - Adicionada F17)
+
+**Histórico**:
+- v1.0 (21/05): Features F1-F16 base
+- v1.1 (22/05): F17 - Tipos de Tarefa Configuráveis
 
 ---
 
@@ -145,6 +149,17 @@ Sistema de gestão de tempo usando técnica de Time Blocking com foco em rastrea
 - **Entrada**: Nenhuma
 - **Saída**: Painel com resumo de métricas por projeto
 
+### **F17: Tipos de Tarefa Configuráveis**
+- Usuário pode criar e gerenciar tipos de tarefa personalizados (ex: Bug, Feature, Refactor, Meeting, Admin)
+- Cada tipo tem nome e cor opcional para identificação visual
+- Ao criar/editar tarefa, usuário seleciona qual tipo ela é
+- Tipos de tarefa aparecem em dropdown ou multi-select ao criar tarefa
+- Sistema persiste tipos em localStorage
+- Métricas expandidas mostram tempo gasto **por tipo de tarefa** (não apenas por projeto)
+- Dashboard exibe card com "Horas por Tipo" mostrando breakdown de tempo por tipo
+- **Entrada**: Nome do tipo + Cor (opcional), ou seleção de tipo ao criar tarefa
+- **Saída**: Tipos de tarefa configurados, tarefas classificadas, métricas por tipo visíveis
+
 ---
 
 ## 📊 Estrutura de Dados (Referência)
@@ -197,6 +212,7 @@ Agendamento {
 - F11 (deletar - pode ser simplificado)
 - F15 (importar JSON - pode esperar)
 - F16 (relatório detalhado - pode ser manual via JSON export)
+- F17 (tipos de tarefa - será planejado em PLANS.md, pode ser MVP avançado ou V2)
 
 ---
 

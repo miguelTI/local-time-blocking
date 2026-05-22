@@ -1,8 +1,12 @@
 # Time Blocking System - Technical Specifications
 
-**Versão**: 1.0  
-**Data**: 21 de Maio de 2026  
-**Status**: ✅ Aprovado  
+**Versão**: 1.1  
+**Data**: 22 de Maio de 2026  
+**Status**: ✅ Aprovado (v1.1 - Adicionado TaskType)
+
+**Histórico**:
+- v1.0 (21/05): Especificações base para MVP
+- v1.1 (22/05): TaskType para tipos de tarefa configuráveis  
 
 ---
 
@@ -49,12 +53,38 @@ Especificações técnicas detalhadas para implementação do Time Blocking Syst
 
 ---
 
+### Tipo de Tarefa (Task Type) - NOVO v1.1
+```javascript
+{
+  id: string (UUID v4),
+  nome: string (1-100 chars),
+  cor?: string (hex color - opcional, ex: #FF5733),
+  data_criacao: timestamp,
+  ativo: boolean (soft delete)
+}
+```
+
+**Validações**:
+- `nome`: obrigatório, mínimo 1 char, máximo 100
+- `cor`: opcional, formato hex válido (ex: #RRGGBB)
+- `id`: gerado automaticamente, único
+- Um projeto pode ter múltiplos tipos de tarefa
+- Tipos padrão sugeridos: "Bug", "Feature", "Refactor", "Meeting", "Admin"
+
+**Observações**:
+- Tipos de tarefa são globais (não limitados a um projeto)
+- Uma tarefa referencia um tipo via `task_type_id`
+- Deletar um tipo não deleta tarefas (apenas remove referência, task_type_id fica null)
+
+---
+
 ### Tarefa (Task)
 ```javascript
 {
   id: string (UUID v4),
   nome: string (1-255 chars),
   projeto_id: string | null,
+  task_type_id?: string | null (NOVO v1.1 - referência a TaskType),
   estado: 'aberta' | 'agendada' | 'concluída' | 'cancelada',
   
   // Planejamento
@@ -79,9 +109,15 @@ Especificações técnicas detalhadas para implementação do Time Blocking Syst
 **Validações**:
 - `nome`: obrigatório, mínimo 1 char, máximo 255
 - `projeto_id`: pode ser null (tarefa ofensora)
+- `task_type_id`: opcional, pode ser null, deve referenciar um TaskType válido se preenchido
 - `tempo_planejado`: número positivo ou null
 - `tempo_gasto`: número positivo ou null (só preenchido se estado === 'concluída')
 - Transições de estado: aberta → (agendada|cancelada) → concluída|cancelada
+
+**Compatibilidade v1.0 → v1.1**:
+- Tarefas criadas em v1.0 não terão `task_type_id` (será undefined/null)
+- Sistema deve tratar task_type_id null graciosamente
+- Não há migração necessária de dados existentes
 
 ---
 
@@ -111,17 +147,28 @@ Especificações técnicas detalhadas para implementação do Time Blocking Syst
 ```javascript
 // Chave: 'timeblocking-app-v1'
 {
-  version: '1.0',
+  version: '1.1', // ATUALIZADO v1.1
   lastUpdated: timestamp,
   projects: Project[],
   tasks: Task[],
-  schedules: ScheduleEntry[]
+  schedules: ScheduleEntry[],
+  taskTypes: TaskType[] // NOVO v1.1
 }
 ```
 
 **Estratégia de Versionamento**:
 - Se versão local < versão esperada: mostrar aviso de migração
-- Estrutura simples no MVP, evitar complexidade
+- v1.0 → v1.1: adicionar `taskTypes: []` se não existir (migração automática)
+- Estrutura simples, evitar complexidade excessiva
+
+**Migração v1.0 → v1.1**:
+```javascript
+// Se versão < 1.1 e não tem taskTypes, adicionar:
+if (!data.taskTypes) {
+  data.taskTypes = [];
+  data.version = '1.1';
+}
+```
 
 ---
 

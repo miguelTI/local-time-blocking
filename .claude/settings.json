@@ -1,0 +1,44 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat << 'EOF'\n\n🚀 Evolution Workflow Reminder\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nWhen implementing a new feature, follow this order:\n\n1️⃣  Review FEATURES.md (existing feature?)\n2️⃣  Plan in PLANS.md (phases, sprints, versioning)\n3️⃣  Check SPECS.md (update if needed)\n4️⃣  Implement Code (follow PLANS.md sprints)\n5️⃣  Update PLANS.md (mark sprints complete)\n6️⃣  Update README.md (keep docs in sync)\n7️⃣  Deploy (npm run deploy)\n\nSee CLAUDE.md v2.0 for detailed workflow.\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nEOF",
+            "statusMessage": "Loading Evolution Workflow reminders..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ $(jq -r '.tool_input.command' 2>/dev/null) == *\"git commit\"* ]]; then\n  if ! git show --name-only --pretty=format: | grep -q PLANS.md; then\n    echo '{\"systemMessage\": \"⚠️  Did you update PLANS.md to mark this sprint as complete?\"}';\n  fi\nfi || true",
+            "statusMessage": "Checking PLANS.md updates..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "The user just submitted a prompt. If they mentioned: 'finished', 'done', 'completed', 'deploy', 'release', or implementation-related keywords, suggest:\n\n✅ Did you:\n- Update PLANS.md to mark sprints as complete?\n- Update README.md with new features?\n- Run 'npm run deploy'?\n\nRespond briefly with any missing steps, or say 'All good!' if task description implies nothing's missing.",
+            "continueOnBlock": true,
+            "statusMessage": "Checking Evolution Workflow steps..."
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "defaultMode": "default"
+  }
+}

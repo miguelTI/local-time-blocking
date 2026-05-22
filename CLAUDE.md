@@ -1,8 +1,8 @@
 # CLAUDE.md - Development Guidelines for Claude Code
 
-**Versão**: 1.0  
-**Última Atualização**: 21 de Maio de 2026  
-**Status**: ✅ Ativo
+**Versão**: 2.0  
+**Última Atualização**: 22 de Maio de 2026  
+**Status**: ✅ Ativo - Com Evolution Workflow Formalizado
 
 ---
 
@@ -399,6 +399,98 @@ Tarefas completadas:
 - `fix: corrigir drag-drop overlap`
 - `docs: atualizar README com screenshots`
 - `chore: cleanup console.logs`
+
+---
+
+## 🚀 Evolution Workflow - Adicionando Novas Features
+
+**Para garantir escala e consistência, SEMPRE siga este fluxo na ordem:**
+
+### Step 1: Revisar FEATURES.md
+- Verifique se a feature solicitada já existe em FEATURES.md
+- Se **SIM**: pule para Step 3
+- Se **NÃO**: vá para Step 2
+
+### Step 2: Confirmar Feature com Usuário
+- Comunique ao usuário: "Feature não está em FEATURES.md"
+- Aguarde confirmação de incluir a feature
+- Se confirmado:
+  - Atualize versão em FEATURES.md (ex: 1.0 → 1.1)
+  - Adicione a feature com descrição clara
+  - Commit: `docs: add feature [nome] to FEATURES.md v1.1`
+
+### Step 3: Planejar em PLANS.md
+- Defina as **phases e sprints** necessárias
+- Quebra a feature em tarefas menores (sprints)
+- Atualize versão em PLANS.md (ex: 1.0 → 1.1)
+- Atualize progresso geral no início do arquivo
+- Commit: `docs: plan feature [nome] in PLANS.md v1.1`
+
+### Step 4: Revisar/Atualizar SPECS.md
+- Verifique se modelos de dados precisam mudar
+- Se **SIM**: adicione/atualize em SPECS.md
+  - Atualize versão em SPECS.md (ex: 1.0 → 1.1)
+  - Descreva novos campos, validações, endpoints
+  - Commit: `docs: update SPECS.md v1.1 for feature [nome]`
+- Se **NÃO**: apenas registre que foi revisado
+
+### Step 5: Implementar Código
+- Crie nova branch: `git checkout -b claude/feature-[nome]`
+- Implemente seguindo PLANS.md
+- Siga Sprint → Commit → Deploy
+
+### Step 6: Atualizar PLANS.md Durante Implementação
+- Depois de cada Sprint:
+  - Marque a Sprint como ✅ COMPLETO
+  - Registre o commit hash
+  - Atualize % de progresso
+  - **NÃO esqueça de revisar se todos os detalhes foram implementados**
+
+### Step 7: Atualizar README.md
+- Adicione a feature ao README
+- Atualize seções relevantes (Features, How to Use, etc.)
+- Mantenha documentação sincronizada com código
+
+### Step 8: Deploy
+- Execute: `npm run build`
+- Execute: `npm run deploy`
+- Valide em produção
+- Compartilhe link com usuário para testes
+
+### Step 9: Finalizar
+- Faça commit final: `feat: [feature-name] - MVP completo`
+- Inclua lista de todas as sprints/commits
+- Push para branch `claude/feature-[nome]`
+
+---
+
+## ✅ Checklist para Evolution Workflow
+
+Antes de começar **qualquer** nova feature, execute:
+
+- [ ] FEATURES.md revisado (existe ou confirmada)
+- [ ] PLANS.md com phases/sprints planejadas
+- [ ] SPECS.md atualizado se necessário
+- [ ] Versões de documentos atualizadas
+- [ ] Nova branch criada: `claude/feature-[nome]`
+- [ ] Commits de documentação feitos
+
+Depois de **cada Sprint** implementada:
+
+- [ ] Código testado no navegador
+- [ ] PLANS.md marcado como completo
+- [ ] README.md atualizado
+- [ ] Build sem erros: `npm run build`
+- [ ] Deploy realizado: `npm run deploy`
+
+Antes de considerar **feature finalizada**:
+
+- [ ] Todos os sprints em ✅ COMPLETO em PLANS.md
+- [ ] README.md reflete todas as novas features
+- [ ] Sem console.log de debug
+- [ ] localStorage funciona corretamente
+- [ ] Commit final com lista de tudo feito
+- [ ] Usuário validou em produção
 
 ---
 

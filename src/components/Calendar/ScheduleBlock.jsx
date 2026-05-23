@@ -3,12 +3,15 @@ import { useAppContext } from '../../hooks/useAppContext';
 import './ScheduleBlock.css';
 
 export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
-  const { state } = useAppContext();
-
+  const { state, getTaskTypes } = useAppContext();
   const { unscheduleTask } = useAppContext();
   const task = state.tasks.find((t) => t.id === schedule.tarefa_id);
+  const taskTypes = getTaskTypes();
 
   if (!task) return null;
+
+  const taskType = task.task_type_id ? taskTypes.find((t) => t.id === task.task_type_id) : null;
+  const blockColor = taskType?.cor || projectColor;
 
   const handleRemove = (e) => {
     e.stopPropagation();
@@ -35,7 +38,7 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
           style={{
             height: `${blockHeight}px`,
             top: `${topOffset}px`,
-            borderLeftColor: projectColor,
+            borderLeftColor: blockColor,
             ...provided.draggableProps.style,
           }}
           ref={provided.innerRef}

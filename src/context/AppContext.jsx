@@ -58,13 +58,14 @@ export function AppContextProvider({ children }) {
     return state.projects.filter((p) => p.ativo);
   }, [state.projects]);
 
-  const addTask = useCallback((nome, projeto_id = null) => {
+  const addTask = useCallback((nome, projeto_id = null, task_type_id = null) => {
     validateTaskName(nome);
 
     const newTask = {
       id: generateUUID(),
       nome: nome.trim(),
       projeto_id: projeto_id || null,
+      task_type_id: task_type_id || null,
       estado: 'aberta',
       tempo_planejado: null,
       tempo_gasto: null,

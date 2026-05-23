@@ -43,22 +43,22 @@ Phase 6: Export & Polish                             ✅ PHASE COMPLETA
 ├─ Sprint 6.2: Bug Fixes & Refinement                ✅ COMPLETO
 └─ Sprint 6.3: MVP Release                           ✅ COMPLETO
 
-Phase 7: Task Types (Feature)                         ⏳ EM DESENVOLVIMENTO
+Phase 7: Task Types (Feature)                         ✅ PHASE COMPLETA
 ├─ Sprint 7.1: Task Types CRUD                        ✅ COMPLETO
-├─ Sprint 7.2: Task Type Integration                  ⏳ PRÓXIMO
-└─ Sprint 7.3: Metrics by Type                        ⏳ PLANEJADO
+├─ Sprint 7.2: Task Type Integration                  ✅ COMPLETO
+└─ Sprint 7.3: Metrics by Task Type                   ✅ COMPLETO
 ```
 
-**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 1/3 sprints Phase 7 completas, 2/3 planejadas  
+**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 3/3 sprints Phase 7 completas (100%) ✅  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
 **Phase 2 Core Features**: 100% COMPLETA ✅  
 **Phase 3 Calendário**: 100% COMPLETA ✅  
 **Phase 4 Agendamento**: 100% COMPLETA ✅  
 **Phase 5 Conclusão & Relatórios**: 100% COMPLETA ✅  
 **Phase 6 Export & Polish**: 100% COMPLETA ✅  
-**Phase 7 Task Types**: 33% EM DESENVOLVIMENTO (1/3 sprints completa)  
-**Status**: 🚀 MVP v1.0 RELEASE + Feature v1.1 em desenvolvimento (Sprint 7.2 próxima)  
-**Última atualização**: 22/05/2026 - Sprint 7.1 completa, 7.2 em planejamento
+**Phase 7 Task Types**: 100% COMPLETA ✅ (3/3 sprints completas)  
+**Status**: 🚀 MVP v1.0 RELEASE ✅ + Feature v1.1 (Task Types) COMPLETA ✅  
+**Última atualização**: 23/05/2026 - Phase 7 completa, pronto para merge e deploy
 
 ---
 
@@ -829,7 +829,14 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 - ✅ localStorage: tipo_id salvo e carregado corretamente
 - ✅ Sem console errors
 
-**Commit**: `[será preenchido após implementação]`
+**Commit**: `6e14bcf` - feat: phase-7.2 - Task Type Integration
+
+**Acceptance Criteria**:
+- ✅ Task type dropdown in TaskForm with all available types
+- ✅ Task type badge displayed in TaskItem with correct color
+- ✅ ScheduleBlock border color matches task type (or project if no type)
+- ✅ localStorage persists task_type_id correctly
+- ✅ Sem console errors
 
 ---
 
@@ -837,7 +844,7 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 
 **Objetivo**: Expandir relatório de métricas para mostrar horas por tipo de tarefa
 
-**Status**: ⏳ **PLANEJADO** (após 7.2)
+**Status**: ✅ **COMPLETO** (23/05/2026)
 
 **Tasks**:
 - [ ] Atualizar `src/components/Metrics/MetricsPanel.jsx`:
@@ -867,7 +874,7 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 - ✅ Ordenação está clara (maior primeiro)
 - ✅ Sem console errors
 
-**Commit**: `[será preenchido após implementação]`
+**Commit**: `001800f` - feat: phase-7.3 - Metrics by Task Type
 
 ---
 
@@ -881,7 +888,7 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 | 4     | 3       | 5-6 dias  | ✅ COMPLETO |
 | 5     | 3       | 4-5 dias  | ✅ COMPLETO |
 | 6     | 3       | 2-3 dias  | ✅ COMPLETO |
-| 7     | 3       | 2-3 dias  | ⏳ PLANEJADO |
+| 7     | 3       | 2-3 dias  | ✅ COMPLETO |
 | **MVP Total** | **18** | **22-28 dias** | ✅ PRONTO |
 | **Feature Total** | **3** | **2-3 dias** | ⏳ INICIANDO |
 

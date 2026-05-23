@@ -19,11 +19,11 @@ export default function MetricsPanel() {
     <div className="metrics-panel">
       <h2>📊 Relatório de Métricas</h2>
 
-      {/* Métricas por Projeto */}
+      {/* Métricas por Projeto + Tarefas Ofensoras */}
       <section className="metrics-by-project">
         <h3>Por Projeto</h3>
-        {projects.length === 0 ? (
-          <p className="empty-state">Nenhum projeto ainda</p>
+        {projects.length === 0 && metrics.ofensoras.tarefas_abertas === 0 ? (
+          <p className="empty-state">Nenhum projeto ou tarefa ainda</p>
         ) : (
           <div className="metrics-grid">
             {metrics.por_projeto.map((metric) => (
@@ -34,20 +34,15 @@ export default function MetricsPanel() {
                 projectName={metric.projeto_nome}
               />
             ))}
+            {/* Tarefas Ofensoras como um card normal */}
+            <ProjectMetrics
+              key="ofensoras"
+              metric={metrics.ofensoras}
+              projectColor="#f59e0b"
+              projectName="⚠️ Sem Projeto"
+            />
           </div>
         )}
-      </section>
-
-      {/* Tarefas Ofensoras */}
-      <section className="metrics-offenders">
-        <h3>⚠️ Tarefas sem Projeto</h3>
-        <div className="offender-metrics-card">
-          <ProjectMetrics
-            metric={metrics.ofensoras}
-            projectColor="#f59e0b"
-            projectName="Tarefas Ofensoras"
-          />
-        </div>
       </section>
 
       {/* Horas por Tipo de Tarefa */}
@@ -105,7 +100,7 @@ export default function MetricsPanel() {
         </section>
       )}
 
-      {projects.length === 0 && metrics.ofensoras.tarefas_abertas === 0 && (
+      {projects.length === 0 && metrics.ofensoras.tarefas_abertas === 0 && typeMetrics.length === 0 && (
         <div className="empty-state">
           <p>Nenhuma métrica disponível ainda</p>
           <small>Crie projetos, tarefas e conclua-as para ver as métricas</small>

@@ -112,35 +112,6 @@
   color: #6366f1;
 }
 
-.metrics-offenders {
-  margin-bottom: 24px;
-}
-
-.metrics-offenders h3 {
-  padding: 12px 16px;
-  background: #fffbeb;
-  border: 2px solid #fbbf24;
-  border-bottom: none;
-  border-radius: 8px 8px 0 0;
-  margin: 0 0 -2px;
-  color: #92400e;
-}
-
-.offender-metrics-card {
-  background: #fffbeb;
-  border: 2px solid #fbbf24;
-  border-radius: 0 0 8px 8px;
-  padding: 16px;
-}
-
-.offender-metrics-card .project-metric-card {
-  background: white;
-  border: 1px solid #fed7aa;
-}
-
-.offender-metrics-card .card-header {
-  border-bottom-color: #fed7aa;
-}
 
 .empty-state {
   text-align: center;

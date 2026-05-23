@@ -57,29 +57,47 @@
   text-overflow: ellipsis;
 }
 
-.block-remove {
+.block-actions {
   position: absolute;
   top: 2px;
   right: 2px;
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.schedule-block:hover .block-actions {
+  opacity: 1;
+}
+
+.block-complete,
+.block-remove {
   width: 16px;
   height: 16px;
   padding: 0;
   border: none;
-  background: rgba(239, 68, 68, 0.9);
   color: white;
   border-radius: 2px;
   cursor: pointer;
   font-size: 11px;
   line-height: 1;
-  opacity: 0;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.schedule-block:hover .block-remove {
-  opacity: 1;
+.block-complete {
+  background: rgba(34, 197, 94, 0.9);
+}
+
+.block-complete:hover {
+  background: #22c55e;
+}
+
+.block-remove {
+  background: rgba(239, 68, 68, 0.9);
 }
 
 .block-remove:hover {

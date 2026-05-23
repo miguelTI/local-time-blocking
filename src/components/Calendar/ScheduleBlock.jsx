@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useAppContext } from '../../hooks/useAppContext';
+import CompleteTaskModal from '../Common/CompleteTaskModal';
 import './ScheduleBlock.css';
 
 export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
-  const { state, getTaskTypes } = useAppContext();
+  const { state, getTaskTypes, completeTask } = useAppContext();
   const { unscheduleTask } = useAppContext();
+  const [showCompleteModal, setShowCompleteModal] = useState(false);
   const task = state.tasks.find((t) => t.id === schedule.tarefa_id);
   const taskTypes = getTaskTypes();
 
@@ -20,6 +23,15 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
     }
   };
 
+  const handleCompleteSubmit = (tempo_gasto) => {
+    try {
+      completeTask(task.id, tempo_gasto);
+      setShowCompleteModal(false);
+    } catch (err) {
+      console.error('Erro ao concluir:', err);
+    }
+  };
+
   const [startHour, startMin] = schedule.hora_inicio.split(':').map(Number);
   const [endHour, endMin] = schedule.hora_fim.split(':').map(Number);
 
@@ -31,7 +43,8 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
   const topOffset = ((startMinutes - 360) / 60) * 60;
 
   return (
-    <Draggable draggableId={`schedule_${task.id}_${schedule.id}`} index={index} type="SCHEDULE">
+    <>
+      <Draggable draggableId={`schedule_${task.id}_${schedule.id}`} index={index} type="SCHEDULE">
       {(provided, snapshot) => (
         <div
           className={`schedule-block ${snapshot.isDragging ? 'dragging' : ''}`}
@@ -52,11 +65,32 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
             </span>
             <span className="block-name">{task.nome}</span>
           </div>
-          <button className="block-remove" onClick={handleRemove} title="Remover">
-            ✕
-          </button>
+          <div className="block-actions">
+            <button
+              className="block-complete"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowCompleteModal(true);
+              }}
+              title="Concluir"
+            >
+              ✓
+            </button>
+            <button className="block-remove" onClick={handleRemove} title="Remover">
+              ✕
+            </button>
+          </div>
         </div>
       )}
     </Draggable>
+
+    {showCompleteModal && (
+      <CompleteTaskModal
+        task={task}
+        onComplete={handleCompleteSubmit}
+        onCancel={() => setShowCompleteModal(false)}
+      />
+    )}
+    </>
   );
 }

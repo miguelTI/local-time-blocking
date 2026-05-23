@@ -5,12 +5,14 @@ import CompleteTaskModal from '../Common/CompleteTaskModal';
 import './TaskItem.css';
 
 export default function TaskItem({ task, projectColor, index = 0 }) {
-  const { deleteTask, getProjects, completeTask, cancelTask } = useAppContext();
+  const { deleteTask, getProjects, completeTask, cancelTask, getTaskTypes } = useAppContext();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCompleteModal, setShowCompleteModal] = useState(false);
   const projects = getProjects();
+  const taskTypes = getTaskTypes();
 
   const project = projects.find((p) => p.id === task.projeto_id);
+  const taskType = task.task_type_id ? taskTypes.find((t) => t.id === task.task_type_id) : null;
 
   const handleDelete = () => {
     if (window.confirm(`Deletar tarefa "${task.nome}"?`)) {
@@ -60,6 +62,21 @@ export default function TaskItem({ task, projectColor, index = 0 }) {
               <span className="task-name">{task.nome}</span>
               {project && (
                 <span className="task-project">{project.nome}</span>
+              )}
+              {taskType && (
+                <span
+                  className="task-type-badge"
+                  style={{
+                    backgroundColor: taskType.cor || '#3498db',
+                    color: 'white',
+                    padding: '2px 6px',
+                    borderRadius: '3px',
+                    fontSize: '11px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {taskType.nome}
+                </span>
               )}
               {isOffender && (
                 <span className="task-offender-badge">⚠️ Sem Projeto</span>

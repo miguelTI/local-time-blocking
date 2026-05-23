@@ -3,13 +3,15 @@ import { useAppContext } from '../../hooks/useAppContext';
 import './TaskForm.css';
 
 export default function TaskForm({ onTaskCreated, onCancel }) {
-  const { addTask, getProjects } = useAppContext();
+  const { addTask, getProjects, getTaskTypes } = useAppContext();
   const [name, setName] = useState('');
   const [projectId, setProjectId] = useState('');
+  const [taskTypeId, setTaskTypeId] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const projects = getProjects();
+  const taskTypes = getTaskTypes();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,9 +30,10 @@ export default function TaskForm({ onTaskCreated, onCancel }) {
     setIsSubmitting(true);
 
     try {
-      addTask(name.trim(), projectId || null);
+      addTask(name.trim(), projectId || null, taskTypeId || null);
       setName('');
       setProjectId('');
+      setTaskTypeId('');
       onTaskCreated?.();
     } catch (err) {
       setError(err.message || 'Erro ao criar tarefa');
@@ -69,6 +72,23 @@ export default function TaskForm({ onTaskCreated, onCancel }) {
           {projects.map((p) => (
             <option key={p.id} value={p.id}>
               {p.nome}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="task-type">Tipo (Opcional)</label>
+        <select
+          id="task-type"
+          value={taskTypeId}
+          onChange={(e) => setTaskTypeId(e.target.value)}
+          disabled={isSubmitting}
+        >
+          <option value="">Sem Tipo</option>
+          {taskTypes.map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.nome}
             </option>
           ))}
         </select>

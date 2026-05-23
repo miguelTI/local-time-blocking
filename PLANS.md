@@ -1,8 +1,12 @@
 # Time Blocking System - Development Plan
 
-**Versão**: 1.0  
-**Data**: 21 de Maio de 2026  
-**Status**: ✅ Aprovado  
+**Versão**: 1.1  
+**Data**: 22 de Maio de 2026  
+**Status**: ✅ Aprovado (v1.1 - Adicionada Phase 7)
+
+**Histórico**:
+- v1.0 (21/05): Phases 1-6 (MVP completo)
+- v1.1 (22/05): Phase 7 - Task Types (Tipos de Tarefa)  
 
 ---
 
@@ -38,17 +42,23 @@ Phase 6: Export & Polish                             ✅ PHASE COMPLETA
 ├─ Sprint 6.1: Export JSON                           ✅ COMPLETO
 ├─ Sprint 6.2: Bug Fixes & Refinement                ✅ COMPLETO
 └─ Sprint 6.3: MVP Release                           ✅ COMPLETO
+
+Phase 7: Task Types (Feature)                         ✅ PHASE COMPLETA
+├─ Sprint 7.1: Task Types CRUD                        ✅ COMPLETO
+├─ Sprint 7.2: Task Type Integration                  ✅ COMPLETO
+└─ Sprint 7.3: Metrics by Task Type                   ✅ COMPLETO
 ```
 
-**Resumo**: 18/18 sprints completas (100% do projeto) ✅  
+**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 3/3 sprints Phase 7 completas (100%) ✅  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
 **Phase 2 Core Features**: 100% COMPLETA ✅  
 **Phase 3 Calendário**: 100% COMPLETA ✅  
 **Phase 4 Agendamento**: 100% COMPLETA ✅  
 **Phase 5 Conclusão & Relatórios**: 100% COMPLETA ✅  
 **Phase 6 Export & Polish**: 100% COMPLETA ✅  
-**Status**: 🚀 MVP PRONTO PARA RELEASE  
-**Última atualização**: 21/05/2026 - MVP v1.0 Release
+**Phase 7 Task Types**: 100% COMPLETA ✅ (3/3 sprints completas)  
+**Status**: 🚀 MVP v1.0 RELEASE ✅ + Feature v1.1 (Task Types) COMPLETA ✅  
+**Última atualização**: 23/05/2026 - Phase 7 completa, pronto para merge e deploy
 
 ---
 
@@ -91,9 +101,15 @@ Phase 6: Export & Polish
 ├─ Sprint 6.2: Bug Fixes & Refinamento
 └─ Sprint 6.3: MVP Release
 
+Phase 7: Task Types (Tipos de Tarefa - V1.1)
+├─ Sprint 7.1: Task Types CRUD
+├─ Sprint 7.2: Task Type Integration
+└─ Sprint 7.3: Metrics by Type
+
 ```
 
-**Duração Estimada**: 2-3 semanas (depende da velocidade)
+**Duração Estimada MVP**: 2-3 semanas (depende da velocidade)
+**Duração Estimada Phase 7**: 2-3 dias
 
 ---
 
@@ -732,17 +748,149 @@ Phase 6: Export & Polish
 
 ---
 
+## 📋 Phase 7: Task Types (Tipos de Tarefa Configuráveis)
+
+### Sprint 7.1: Task Types CRUD
+
+**Objetivo**: Criar, listar, editar, deletar tipos de tarefa
+
+**Status**: ✅ **COMPLETO** (22/05/2026)
+
+**Tasks**:
+- [x] Atualizar `src/context/AppContext.jsx`:
+  - [x] Adicionar estado `taskTypes: []`
+  - [x] `addTaskType(name, color)`: cria novo tipo
+  - [x] `updateTaskType(id, { name?, color? })`: edita tipo
+  - [x] `deleteTaskType(id)`: soft delete (ativo: false)
+  - [x] `getTaskTypes()`: retorna todos ativos
+  
+- [x] Criar `src/components/TaskList/TaskTypeForm.jsx`:
+  - [x] Input para nome do tipo
+  - [x] Color picker para cor (opcional)
+  - [x] Botão "Criar Tipo"
+  - [x] Validações + mensagens de erro
+  
+- [x] Criar `src/components/TaskList/TaskTypeList.jsx`:
+  - [x] Lista de tipos com cores
+  - [x] Botão delete com confirmação
+  - [x] Botão edit (abre form)
+  - [x] Empty state com sugestão de tipos padrão (Bug, Feature, Refactor, Meeting, Admin)
+  
+- [x] Integrar no TaskList/Sidebar:
+  - [x] Aba/seção para "Tipos de Tarefa"
+  - [x] Mostrar TaskTypeForm e TaskTypeList
+  
+- [x] Atualizar localStorage:
+  - [x] Salvar/carregar taskTypes junto com projects e tasks
+
+**Acceptance Criteria**:
+- ✅ Criar tipo: nome e cor aparecem na lista
+- ✅ Editar: nome/cor mudam
+- ✅ Deletar: confirmação + remove
+- ✅ Dados persistem em localStorage
+- ✅ Sem console errors
+
+**Commit**: `cb48483` - feat: phase-7.1 - Task Types CRUD implementation
+
+---
+
+### Sprint 7.2: Task Type Integration
+
+**Objetivo**: Integrar tipos de tarefa com tarefas existentes
+
+**Status**: ⏳ **PRÓXIMO** (após 7.1)
+
+**Tasks**:
+- [ ] Atualizar modelo de Tarefa em SPECS.md (se necessário):
+  - [ ] Adicionar campo `task_type_id: string | null` (pode ser null para tarefas antigas)
+  
+- [ ] Atualizar `src/context/AppContext.jsx`:
+  - [ ] `updateTask()` agora aceita `task_type_id`
+  - [ ] Validação de task_type_id existe
+  
+- [ ] Atualizar `src/components/TaskList/TaskForm.jsx`:
+  - [ ] Adicionar select/dropdown para escolher tipo
+  - [ ] Mostrar cores dos tipos no dropdown
+  - [ ] Campo "Tipo" é opcional
+  - [ ] Quando nenhum tipo, exibir "(sem tipo)"
+  
+- [ ] Atualizar `src/components/TaskList/TaskItem.jsx`:
+  - [ ] Mostrar cor/badge do tipo de tarefa (se existir)
+  - [ ] Exemplo: "🔴 Bug" ou cor de fundo
+  
+- [ ] Atualizar `src/components/Calendar/ScheduleBlock.jsx`:
+  - [ ] Mostrar cor/tipo da tarefa no bloco de calendário
+  - [ ] Melhorar visualização com cor do tipo
+
+**Acceptance Criteria**:
+- ✅ Criar tarefa com tipo: tipo aparece na lista
+- ✅ Editar tarefa: consegue mudar tipo
+- ✅ Visualização: cor/badge do tipo aparece em TaskItem e ScheduleBlock
+- ✅ localStorage: tipo_id salvo e carregado corretamente
+- ✅ Sem console errors
+
+**Commit**: `6e14bcf` - feat: phase-7.2 - Task Type Integration
+
+**Acceptance Criteria**:
+- ✅ Task type dropdown in TaskForm with all available types
+- ✅ Task type badge displayed in TaskItem with correct color
+- ✅ ScheduleBlock border color matches task type (or project if no type)
+- ✅ localStorage persists task_type_id correctly
+- ✅ Sem console errors
+
+---
+
+### Sprint 7.3: Metrics by Task Type
+
+**Objetivo**: Expandir relatório de métricas para mostrar horas por tipo de tarefa
+
+**Status**: ✅ **COMPLETO** (23/05/2026)
+
+**Tasks**:
+- [ ] Atualizar `src/components/Metrics/MetricsPanel.jsx`:
+  - [ ] Adicionar nova seção/card: "Horas por Tipo de Tarefa"
+  - [ ] Calcular total de horas_gasto agrupado por task_type_id
+  - [ ] Mostrar como tabela ou gráfico simples (opcional)
+  - [ ] Incluir total geral no rodapé
+  
+- [ ] Criar função helper em `src/utils/metrics.js`:
+  - [ ] `calculateHoursByTaskType(tasks, taskTypes)`: retorna { type_name: hours }
+  - [ ] Tratar tarefas sem tipo (categoria "Sem Tipo")
+  - [ ] Ordenar por horas (maior primeiro)
+  
+- [ ] Atualizar `src/hooks/useProjects.js` (ou criar novo hook):
+  - [ ] Exportar função para calcular horas por tipo
+  - [ ] Memoizar resultado para performance
+  
+- [ ] Testes visuais:
+  - [ ] Criar algumas tarefas de tipos diferentes
+  - [ ] Marcar como concluído com tempos diferentes
+  - [ ] Verificar que métricas mostram corretamente
+
+**Acceptance Criteria**:
+- ✅ Métricas mostram "Horas por Tipo"
+- ✅ Cálculo está correto (soma de tempo_gasto por tipo)
+- ✅ Tarefas sem tipo aparecem como "Sem Tipo"
+- ✅ Ordenação está clara (maior primeiro)
+- ✅ Sem console errors
+
+**Commit**: `001800f` - feat: phase-7.3 - Metrics by Task Type
+
+---
+
 ## 📊 Estimativas
 
-| Phase | Sprints | Estimativa |
-|-------|---------|-----------|
-| 1     | 3       | 3-4 dias  |
-| 2     | 3       | 4-5 dias  |
-| 3     | 3       | 4-5 dias  |
-| 4     | 3       | 5-6 dias  |
-| 5     | 3       | 4-5 dias  |
-| 6     | 3       | 2-3 dias  |
-| **Total** | **18** | **22-28 dias** |
+| Phase | Sprints | Estimativa | Status |
+|-------|---------|-----------|--------|
+| 1     | 3       | 3-4 dias  | ✅ COMPLETO |
+| 2     | 3       | 4-5 dias  | ✅ COMPLETO |
+| 3     | 3       | 4-5 dias  | ✅ COMPLETO |
+| 4     | 3       | 5-6 dias  | ✅ COMPLETO |
+| 5     | 3       | 4-5 dias  | ✅ COMPLETO |
+| 6     | 3       | 2-3 dias  | ✅ COMPLETO |
+| 7     | 3       | 2-3 dias  | ✅ COMPLETO |
+| **MVP Total** | **18** | **22-28 dias** | ✅ PRONTO |
+| **Feature Total** | **3** | **2-3 dias** | ⏳ INICIANDO |
 
 **Notas**:
 - Estimativas assumem 1-2 horas/dia dedicadas

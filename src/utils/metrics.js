@@ -20,7 +20,7 @@ export function calculateHoursByTaskType(tasks, taskTypes) {
         };
       }
 
-      typeHours[typeKey].hours += task.tempo_gasto / 60;
+      typeHours[typeKey].hours += task.tempo_gasto;
       typeHours[typeKey].count += 1;
     });
 

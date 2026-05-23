@@ -1,12 +1,13 @@
 # Time Blocking System - Features Definition
 
-**Versão**: 1.1  
-**Data**: 22 de Maio de 2026  
-**Status**: ✅ Aprovado (v1.1 - Adicionada F17)
+**Versão**: 1.2  
+**Data**: 23 de Maio de 2026  
+**Status**: ✅ Aprovado (v1.2 - Adicionada F18)
 
 **Histórico**:
 - v1.0 (21/05): Features F1-F16 base
 - v1.1 (22/05): F17 - Tipos de Tarefa Configuráveis
+- v1.2 (23/05): F18 - Melhorias de Usabilidade (Finalizar do Calendário)
 
 ---
 
@@ -159,6 +160,16 @@ Sistema de gestão de tempo usando técnica de Time Blocking com foco em rastrea
 - Dashboard exibe card com "Horas por Tipo" mostrando breakdown de tempo por tipo
 - **Entrada**: Nome do tipo + Cor (opcional), ou seleção de tipo ao criar tarefa
 - **Saída**: Tipos de tarefa configurados, tarefas classificadas, métricas por tipo visíveis
+
+---
+
+### **F18: Melhorias de Usabilidade - Finalizar Tarefa do Calendário**
+- Usuário pode finalizar uma tarefa diretamente do bloco no calendário
+- Ao clicar no botão de conclusão no ScheduleBlock, abre modal para informar tempo gasto
+- Melhora fluxo de trabalho: usuário não precisa voltar à sidebar
+- Aplica-se a tarefas agendadas (estado 'agendada')
+- **Entrada**: Clique no botão de conclusão do bloco no calendário
+- **Saída**: Modal de conclusão abre, tarefa concluída após confirmação
 
 ---
 

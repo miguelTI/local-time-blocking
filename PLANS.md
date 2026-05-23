@@ -49,11 +49,11 @@ Phase 7: Task Types (Feature)                         ✅ PHASE COMPLETA
 ├─ Sprint 7.2: Task Type Integration                  ✅ COMPLETO
 └─ Sprint 7.3: Metrics by Task Type                   ✅ COMPLETO
 
-Phase 8: Melhorias de Usabilidade                     ⏳ EM DESENVOLVIMENTO
-└─ Sprint 8.1: Finalizar Tarefa do Calendário         ⏳ EM ANDAMENTO
+Phase 8: Melhorias de Usabilidade                     ✅ PHASE COMPLETA
+└─ Sprint 8.1: Finalizar Tarefa do Calendário         ✅ COMPLETO
 ```
 
-**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 3/3 sprints Phase 7 completas (100%) ✅ + Phase 8 iniciada  
+**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 3/3 sprints Phase 7 completas (100%) ✅ + 1/1 sprint Phase 8 completa (100%) ✅  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
 **Phase 2 Core Features**: 100% COMPLETA ✅  
 **Phase 3 Calendário**: 100% COMPLETA ✅  
@@ -61,9 +61,9 @@ Phase 8: Melhorias de Usabilidade                     ⏳ EM DESENVOLVIMENTO
 **Phase 5 Conclusão & Relatórios**: 100% COMPLETA ✅  
 **Phase 6 Export & Polish**: 100% COMPLETA ✅  
 **Phase 7 Task Types**: 100% COMPLETA ✅ (3/3 sprints completas)  
-**Phase 8 Melhorias**: ⏳ EM DESENVOLVIMENTO (Sprint 8.1 EM ANDAMENTO)  
-**Status**: 🚀 MVP v1.0 RELEASE ✅ + Feature v1.1 (Task Types) ✅ + Melhorias v1.2 🚧  
-**Última atualização**: 23/05/2026 - Phase 8 iniciada - Sprint 8.1 EM ANDAMENTO
+**Phase 8 Melhorias**: 100% COMPLETA ✅ (1/1 sprint completa)  
+**Status**: 🚀 MVP v1.0 RELEASE ✅ + Feature v1.1 (Task Types) ✅ + Melhorias v1.2 ✅  
+**Última atualização**: 23/05/2026 - Phase 8 completa - Pronto para deploy final
 
 ---
 
@@ -892,25 +892,31 @@ Phase 8: Melhorias de Usabilidade (V1.2)
 
 **Objetivo**: Permitir finalizar tarefa diretamente do bloco de agendamento no calendário
 
-**Status**: ⏳ **EM ANDAMENTO** (23/05/2026)
+**Status**: ✅ **COMPLETO** (23/05/2026)
 
 **Tasks**:
-- [ ] Atualizar `src/components/Calendar/ScheduleBlock.jsx`:
-  - [ ] Adicionar botão "✓ Concluir" no bloco
-  - [ ] Botão fica ao lado do botão "✕ Remover" existente
-  - [ ] Ao clicar, abre CompleteTaskModal
+- [x] Atualizar `src/components/Calendar/ScheduleBlock.jsx`:
+  - [x] Adicionar botão "✓ Concluir" no bloco
+  - [x] Botão fica ao lado do botão "✕ Remover" existente
+  - [x] Ao clicar, abre CompleteTaskModal
   
-- [ ] Integrar CompleteTaskModal em ScheduleBlock:
-  - [ ] Mostrar modal quando botão é clicado
-  - [ ] Passar `task` e callbacks necessários
-  - [ ] Modal funciona igual ao da TaskItem
+- [x] Integrar CompleteTaskModal em ScheduleBlock:
+  - [x] Mostrar modal quando botão é clicado
+  - [x] Passar `task` e callbacks necessários
+  - [x] Modal funciona igual ao da TaskItem
   
-- [ ] Testes:
-  - [ ] Criar tarefa agendada
-  - [ ] Finalizar via botão no calendário
-  - [ ] Verificar que tarefa muda para "concluída"
-  - [ ] Verificar que tempo_gasto é salvo corretamente
-  - [ ] Verificar que schedule é marcado como inativo
+- [x] CSS para botões:
+  - [x] Criar .block-actions container
+  - [x] Botões aparecem ao fazer hover no bloco
+  - [x] Estilos diferenciados (verde para concluir, vermelho para remover)
+  - [x] Transições suaves
+  
+- [x] Testes:
+  - [x] Criar tarefa agendada
+  - [x] Finalizar via botão no calendário
+  - [x] Verificar que tarefa muda para "concluída"
+  - [x] Verificar que tempo_gasto é salvo corretamente
+  - [x] Verificar que schedule é marcado como inativo
 
 **Acceptance Criteria**:
 - ✅ Botão de conclusão visível no ScheduleBlock
@@ -920,7 +926,7 @@ Phase 8: Melhorias de Usabilidade (V1.2)
 - ✅ Sem console errors
 - ✅ Fluxo funciona sem voltar à sidebar
 
-**Commit**: `[será preenchido após implementação]`
+**Commit**: `8353ff6` - feat: phase-8.1 - Complete Task from Calendar
 
 ---
 

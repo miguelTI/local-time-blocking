@@ -109,7 +109,7 @@
   display: flex;
   flex: 1;
   gap: 0;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
 }
 

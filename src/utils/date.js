@@ -1,4 +1,4 @@
-export const HOURS = Array.from({ length: 17 }, (_, i) => i + 6);
+export const HOURS = Array.from({ length: 12 }, (_, i) => i + 8);
 export const WEEKDAYS = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
 export const WEEKDAYS_SHORT = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab', 'Dom'];
 

@@ -45,15 +45,18 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
   return (
     <>
       <Draggable draggableId={`schedule_${task.id}_${schedule.id}`} index={index} type="SCHEDULE">
-      {(provided, snapshot) => (
+      {(provided, snapshot) => {
+        const draggableStyle = {
+          height: `${blockHeight}px`,
+          top: `${topOffset}px`,
+          borderLeftColor: blockColor,
+          ...provided.draggableProps.style,
+        };
+
+        return (
         <div
           className={`schedule-block ${snapshot.isDragging ? 'dragging' : ''}`}
-          style={{
-            ...provided.draggableProps.style,
-            height: `${blockHeight}px`,
-            top: `${topOffset}px`,
-            borderLeftColor: blockColor,
-          }}
+          style={draggableStyle}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -83,7 +86,8 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
             </button>
           </div>
         </div>
-      )}
+        );
+      }}
     </Draggable>
 
     {showCompleteModal && (

@@ -51,7 +51,7 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
           style={{
             height: `${blockHeight}px`,
             top: `${topOffset}px`,
-            borderLeftColor: blockColor,
+            borderLeft: `4px solid ${blockColor}`,
             ...provided.draggableProps.style,
           }}
           ref={provided.innerRef}

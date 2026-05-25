@@ -46,6 +46,8 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
     <>
       <Draggable draggableId={`schedule_${task.id}_${schedule.id}`} index={index} type="SCHEDULE">
       {(provided, snapshot) => {
+        const { style: _, ...draggableProps } = provided.draggableProps;
+
         const draggableStyle = {
           height: `${blockHeight}px`,
           top: `${topOffset}px`,
@@ -58,7 +60,7 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
           className={`schedule-block ${snapshot.isDragging ? 'dragging' : ''}`}
           style={draggableStyle}
           ref={provided.innerRef}
-          {...provided.draggableProps}
+          {...draggableProps}
           {...provided.dragHandleProps}
           title={`${task.nome}\n${schedule.hora_inicio} - ${schedule.hora_fim}`}
         >

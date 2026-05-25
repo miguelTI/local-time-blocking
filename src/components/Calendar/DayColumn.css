@@ -58,5 +58,6 @@
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  height: auto;
+  min-height: calc(60px * 16);
+  height: max-content;
 }

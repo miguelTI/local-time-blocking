@@ -71,8 +71,7 @@
 .calendar-container {
   display: flex;
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   gap: 0;
 }
 

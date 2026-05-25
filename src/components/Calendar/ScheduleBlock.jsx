@@ -40,7 +40,7 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
   const durationMinutes = endMinutes - startMinutes;
 
   const blockHeight = (durationMinutes / 60) * 60;
-  const topOffset = ((startMinutes - 360) / 60) * 60;
+  const topOffset = startMin; // Offset within the TimeSlot (only minutes of the hour)
 
   return (
     <>

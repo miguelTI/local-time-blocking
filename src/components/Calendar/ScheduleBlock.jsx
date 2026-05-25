@@ -49,10 +49,10 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
         <div
           className={`schedule-block ${snapshot.isDragging ? 'dragging' : ''}`}
           style={{
+            ...provided.draggableProps.style,
             height: `${blockHeight}px`,
             top: `${topOffset}px`,
             borderLeftColor: blockColor,
-            ...provided.draggableProps.style,
           }}
           ref={provided.innerRef}
           {...provided.draggableProps}

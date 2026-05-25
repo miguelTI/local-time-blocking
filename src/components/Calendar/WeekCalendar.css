@@ -110,6 +110,7 @@
   gap: 0;
   overflow-x: auto;
   overflow-y: hidden;
+  scrollbar-gutter: stable;
 }
 
 /* Scrollbar styling */

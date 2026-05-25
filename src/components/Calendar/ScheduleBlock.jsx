@@ -63,7 +63,9 @@ export default function ScheduleBlock({ schedule, projectColor, index = 0 }) {
             <span className="block-time">
               {schedule.hora_inicio} - {schedule.hora_fim}
             </span>
-            <span className="block-name">{task.nome}</span>
+            <span className="block-name" style={{ color: projectColor }}>
+              {task.nome}
+            </span>
           </div>
           <div className="block-actions">
             <button

@@ -2,6 +2,7 @@ import { createContext, useState, useCallback, useEffect } from 'react';
 import { generateUUID } from '../utils/uuid';
 import { validateProjectName, validateTaskName, validateScheduleTime, validateDate } from '../utils/validation';
 import { saveToLocalStorage, loadFromLocalStorage } from '../utils/storage';
+import { migrateState } from '../utils/migration';
 
 export const AppContext = createContext();
 
@@ -189,7 +190,8 @@ export function AppContextProvider({ children }) {
   useEffect(() => {
     const savedState = loadFromLocalStorage();
     if (savedState) {
-      setState(savedState);
+      const migratedState = migrateState(savedState);
+      setState(migratedState);
     }
   }, []);
 

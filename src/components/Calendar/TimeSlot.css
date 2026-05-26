@@ -1,5 +1,5 @@
 .time-slot {
-  height: 60px;
+  flex: 1;
   border: 1px solid #e8e8e8;
   border-right: none;
   background: white;

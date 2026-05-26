@@ -82,6 +82,7 @@
   background: #fff;
   border-right: 1px solid #e0e0e0;
   flex-shrink: 0;
+  overflow-x: scroll;
 }
 
 .hours-spacer {
@@ -91,7 +92,6 @@
 }
 
 .hour-label {
-  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +99,7 @@
   font-weight: 500;
   color: #666;
   border-bottom: 1px solid #e8e8e8;
-  flex-shrink: 0;
+  flex: 1;
   padding: 0 4px;
   text-align: center;
   line-height: 1.2;
@@ -109,7 +109,7 @@
   display: flex;
   flex: 1;
   gap: 0;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
 }
 

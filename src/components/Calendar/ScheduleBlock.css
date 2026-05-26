@@ -3,9 +3,8 @@
   left: 1px;
   right: 1px;
   background: white;
-  border-left: 4px solid #3b82f6;
   border: 1px solid #e0e0e0;
-  border-left: 4px solid;
+  border-left: 4px solid #3b82f6;
   border-radius: 4px;
   padding: 6px 8px;
   font-size: 11px;
@@ -50,36 +49,53 @@
 
 .block-name {
   font-size: 11px;
-  color: #333;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.block-remove {
+.block-actions {
   position: absolute;
   top: 2px;
   right: 2px;
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.schedule-block:hover .block-actions {
+  opacity: 1;
+}
+
+.block-complete,
+.block-remove {
   width: 16px;
   height: 16px;
   padding: 0;
   border: none;
-  background: rgba(239, 68, 68, 0.9);
   color: white;
   border-radius: 2px;
   cursor: pointer;
   font-size: 11px;
   line-height: 1;
-  opacity: 0;
   transition: all 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.schedule-block:hover .block-remove {
-  opacity: 1;
+.block-complete {
+  background: rgba(34, 197, 94, 0.9);
+}
+
+.block-complete:hover {
+  background: #22c55e;
+}
+
+.block-remove {
+  background: rgba(239, 68, 68, 0.9);
 }
 
 .block-remove:hover {

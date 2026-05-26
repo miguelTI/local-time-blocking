@@ -1,12 +1,13 @@
 # Time Blocking System - Development Plan
 
-**Versão**: 1.1  
-**Data**: 22 de Maio de 2026  
-**Status**: ✅ Aprovado (v1.1 - Adicionada Phase 7)
+**Versão**: 1.2  
+**Data**: 23 de Maio de 2026  
+**Status**: ✅ Aprovado (v1.2 - Adicionada Phase 8 Melhorias de Usabilidade)
 
 **Histórico**:
 - v1.0 (21/05): Phases 1-6 (MVP completo)
-- v1.1 (22/05): Phase 7 - Task Types (Tipos de Tarefa)  
+- v1.1 (22/05): Phase 7 - Task Types (Tipos de Tarefa)
+- v1.2 (23/05): Phase 8 - Melhorias de Usabilidade (Finalizar do Calendário)  
 
 ---
 
@@ -47,9 +48,12 @@ Phase 7: Task Types (Feature)                         ✅ PHASE COMPLETA
 ├─ Sprint 7.1: Task Types CRUD                        ✅ COMPLETO
 ├─ Sprint 7.2: Task Type Integration                  ✅ COMPLETO
 └─ Sprint 7.3: Metrics by Task Type                   ✅ COMPLETO
+
+Phase 8: Melhorias de Usabilidade                     ✅ PHASE COMPLETA
+└─ Sprint 8.1: Finalizar Tarefa do Calendário         ✅ COMPLETO
 ```
 
-**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 3/3 sprints Phase 7 completas (100%) ✅  
+**Resumo**: 18/18 sprints MVP completas (100%) ✅ + 3/3 sprints Phase 7 completas (100%) ✅ + 1/1 sprint Phase 8 completa (100%) ✅  
 **Phase 1 Foundation**: 100% COMPLETA ✅  
 **Phase 2 Core Features**: 100% COMPLETA ✅  
 **Phase 3 Calendário**: 100% COMPLETA ✅  
@@ -57,8 +61,9 @@ Phase 7: Task Types (Feature)                         ✅ PHASE COMPLETA
 **Phase 5 Conclusão & Relatórios**: 100% COMPLETA ✅  
 **Phase 6 Export & Polish**: 100% COMPLETA ✅  
 **Phase 7 Task Types**: 100% COMPLETA ✅ (3/3 sprints completas)  
-**Status**: 🚀 MVP v1.0 RELEASE ✅ + Feature v1.1 (Task Types) COMPLETA ✅  
-**Última atualização**: 23/05/2026 - Phase 7 completa, pronto para merge e deploy
+**Phase 8 Melhorias**: 100% COMPLETA ✅ (1/1 sprint completa)  
+**Status**: 🚀 MVP v1.0 RELEASE ✅ + Feature v1.1 (Task Types) ✅ + Melhorias v1.2 ✅  
+**Última atualização**: 23/05/2026 - Phase 8 completa - Pronto para deploy final
 
 ---
 
@@ -105,6 +110,9 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 ├─ Sprint 7.1: Task Types CRUD
 ├─ Sprint 7.2: Task Type Integration
 └─ Sprint 7.3: Metrics by Type
+
+Phase 8: Melhorias de Usabilidade (V1.2)
+└─ Sprint 8.1: Finalizar Tarefa do Calendário
 
 ```
 
@@ -878,6 +886,50 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 
 ---
 
+## 📋 Phase 8: Melhorias de Usabilidade
+
+### Sprint 8.1: Finalizar Tarefa do Calendário
+
+**Objetivo**: Permitir finalizar tarefa diretamente do bloco de agendamento no calendário
+
+**Status**: ✅ **COMPLETO** (23/05/2026)
+
+**Tasks**:
+- [x] Atualizar `src/components/Calendar/ScheduleBlock.jsx`:
+  - [x] Adicionar botão "✓ Concluir" no bloco
+  - [x] Botão fica ao lado do botão "✕ Remover" existente
+  - [x] Ao clicar, abre CompleteTaskModal
+  
+- [x] Integrar CompleteTaskModal em ScheduleBlock:
+  - [x] Mostrar modal quando botão é clicado
+  - [x] Passar `task` e callbacks necessários
+  - [x] Modal funciona igual ao da TaskItem
+  
+- [x] CSS para botões:
+  - [x] Criar .block-actions container
+  - [x] Botões aparecem ao fazer hover no bloco
+  - [x] Estilos diferenciados (verde para concluir, vermelho para remover)
+  - [x] Transições suaves
+  
+- [x] Testes:
+  - [x] Criar tarefa agendada
+  - [x] Finalizar via botão no calendário
+  - [x] Verificar que tarefa muda para "concluída"
+  - [x] Verificar que tempo_gasto é salvo corretamente
+  - [x] Verificar que schedule é marcado como inativo
+
+**Acceptance Criteria**:
+- ✅ Botão de conclusão visível no ScheduleBlock
+- ✅ Modal de conclusão abre ao clicar
+- ✅ Tarefa concluída com tempo registrado
+- ✅ Schedule remove-se do calendário após conclusão
+- ✅ Sem console errors
+- ✅ Fluxo funciona sem voltar à sidebar
+
+**Commit**: `8353ff6` - feat: phase-8.1 - Complete Task from Calendar
+
+---
+
 ## 📊 Estimativas
 
 | Phase | Sprints | Estimativa | Status |
@@ -889,8 +941,9 @@ Phase 7: Task Types (Tipos de Tarefa - V1.1)
 | 5     | 3       | 4-5 dias  | ✅ COMPLETO |
 | 6     | 3       | 2-3 dias  | ✅ COMPLETO |
 | 7     | 3       | 2-3 dias  | ✅ COMPLETO |
+| 8     | 1       | 1-2 dias  | ⏳ EM ANDAMENTO |
 | **MVP Total** | **18** | **22-28 dias** | ✅ PRONTO |
-| **Feature Total** | **3** | **2-3 dias** | ⏳ INICIANDO |
+| **Feature Total** | **4** | **3-5 dias** | ⏳ EM DESENVOLVIMENTO |
 
 **Notas**:
 - Estimativas assumem 1-2 horas/dia dedicadas

@@ -59,7 +59,9 @@ export default function TaskItem({ task, projectColor, index = 0 }) {
           >
             <div className="task-color" style={{ backgroundColor: projectColor }} />
             <div className="task-info">
-              <span className="task-name">{task.nome}</span>
+              <span className="task-name" style={{ color: projectColor }}>
+                {task.nome}
+              </span>
               {project && (
                 <span className="task-project">{project.nome}</span>
               )}
